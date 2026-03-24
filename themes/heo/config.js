@@ -40,13 +40,13 @@ const CONFIG = {
   // 右侧个人资料卡牌欢迎语，点击可自动切换
   HEO_INFOCARD_GREETINGS: [
     '你好！我是莫承潜',
-    '欢迎来到我的博客',
+    '你赢了兄弟',
     '记录学习、设计与生活'
   ],
 
   // 个人资料底部按钮
-  HEO_INFO_CARD_URL1: '/about',
-  HEO_INFO_CARD_ICON1: 'fas fa-user',
+  //HEO_INFO_CARD_URL1: '/about',
+  //HEO_INFO_CARD_ICON1: 'fas fa-user',
   HEO_INFO_CARD_URL2: 'https://github.com/MoChengqian',
   HEO_INFO_CARD_ICON2: 'fab fa-github',
   HEO_INFO_CARD_URL3: 'https://github.com/MoChengqian',
