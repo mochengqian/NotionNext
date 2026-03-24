@@ -8,7 +8,7 @@ const CONFIG = {
 
   // 首页顶部通知条滚动内容，如不需要可以留空 []
   HEO_NOTICE_BAR: [
-    { title: '欢迎来到我的博客', url: 'https://blog.tangly1024.com' },
+    { title: '欢迎来到我的博客', url: 'https://github.com/MoChengqian' },
    // { title: '访问文档中心获取更多帮助', url: 'https://docs.tangly1024.com' }
   ],
 
@@ -35,7 +35,7 @@ const CONFIG = {
   // 英雄区右侧推荐文章标签, 例如 [推荐] , 最多六篇文章; 若留空白''，则推荐最近更新文章
   HEO_HERO_RECOMMEND_POST_TAG: '推荐',
   HEO_HERO_RECOMMEND_POST_SORT_BY_UPDATE_TIME: false, // 推荐文章排序，为`true`时将强制按最后修改时间倒序
-  //   HERO_RECOMMEND_COVER: 'https://cdn.pixabay.com/photo/2015/10/30/20/13/sunrise-1014712_1280.jpg', // 英雄区右侧图片
+  HERO_RECOMMEND_COVER: 'https://img.notionusercontent.com/s3/prod-files-secure%2Fd89f2367-b54a-81cd-9c59-00032f2f4f1e%2F20106dfd-daae-4c1c-9da9-0aadb842daaa%2FIMG_3068.jpeg/size/w=2000?exp=1774431640&sig=3duEL5MNEWXn_tKaDJKusi3s6LBHZr_GOkyXVofDmCY&id=8a5f2367-b54a-83fe-bc15-81705a00ada1&table=block&userId=2b6d872b-594c-81e1-ab68-00024a8a1d96', // 英雄区右侧图片
 
   // 右侧个人资料卡牌欢迎语，点击可自动切换
   HEO_INFOCARD_GREETINGS: [
