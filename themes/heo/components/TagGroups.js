@@ -2,42 +2,34 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 
 /**
- * 标签组
- * @param tags
- * @param currentTag
- * @returns {JSX.Element}
- * @constructor
+ * Tag group
  */
-const TagGroups = ({ tags, className }) => {
+const TagGroups = ({ tags = [], className }) => {
   const router = useRouter()
   const { tag: currentTag } = router.query
-  if (!tags) return <></>
+  if (!tags || tags.length === 0) return <></>
 
   return (
-        <div id="tags-group" className="dark:border-gray-700 space-y-2">
-            {tags.map((tag, index) => {
-              const selected = currentTag === tag.name
-              return (
-                    <SmartLink passHref key={index} href={`/tag/${encodeURIComponent(tag.name)}`}
-                        className={'cursor-pointer inline-block  whitespace-nowrap'}
-                    >
-                        <div className={`${className || ''} 
-                            ${selected ? 'text-white bg-blue-600 dark:bg-yellow-600' : ''}  
-                            flex items-center hover:bg-blue-600 dark:hover:bg-yellow-600 hover:scale-110 hover:text-white rounded-lg px-2 py-0.5 duration-150 transition-all`}
-                        >
-                            <div className="text-lg">{tag.name} </div>
-                            {tag.count
-                              ? (
-                                    <sup className="relative ml-1">{tag.count}</sup>
-                                )
-                              : (
-                                    <></>
-                                )}
-                        </div>
-                    </SmartLink>
-              )
-            })}
-        </div>
+    <div id='tags-group' className='flex flex-wrap gap-2'>
+      {tags.map((tag, index) => {
+        const selected = currentTag === tag.name
+
+        return (
+          <SmartLink
+            passHref
+            key={`${tag.name}-${index}`}
+            href={`/tag/${encodeURIComponent(tag.name)}`}
+            className={`inline-flex cursor-pointer items-center gap-1 rounded-lg border px-2.5 py-1 text-xs transition-colors ${
+              selected
+                ? 'border-blue-200 bg-blue-50 text-blue-700'
+                : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900'
+            } ${className || ''}`}>
+            <span>{tag.name}</span>
+            {tag.count ? <sup>{tag.count}</sup> : null}
+          </SmartLink>
+        )
+      })}
+    </div>
   )
 }
 

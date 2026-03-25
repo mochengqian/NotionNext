@@ -3,6 +3,7 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
+import { getUnifiedPostCover } from './tech-visual'
 
 /**
  * 关联推荐文章
@@ -34,9 +35,10 @@ export default function PostRecommend({ recommendPosts, siteInfo }) {
 
       <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
         {recommendPosts.map(post => {
-          const headerImage = post?.pageCoverThumbnail
-            ? post?.pageCoverThumbnail
-            : siteInfo?.pageCover
+          const headerImage = getUnifiedPostCover(
+            post,
+            siteInfo?.title || 'post-recommend'
+          )
 
           return (
             <SmartLink
@@ -53,7 +55,7 @@ export default function PostRecommend({ recommendPosts, siteInfo }) {
                 </div>
                 <LazyImage
                   src={headerImage}
-                  className='absolute top-0 w-full h-full object-cover object-center group-hover:scale-110 group-hover:brightness-50 transform duration-200'
+                  className='absolute top-0 w-full h-full object-cover object-center group-hover:scale-105 group-hover:brightness-75 transform duration-300'
                 />
                 {/* 卡片的阴影遮罩，为了凸显图片上的文字 */}
                 <div className='h-3/4 w-full absolute left-0 bottom-0'>

@@ -1,5 +1,6 @@
 import LazyImage from '@/components/LazyImage'
 import SmartLink from '@/components/SmartLink'
+import { getUnifiedPostCover } from './tech-visual'
 
 /**
  * 最新文章列表
@@ -17,10 +18,6 @@ const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
   return (
     <div className='grid grid-cols-2 gap-4'>
       {latestPosts.map(post => {
-        const headerImage = post?.pageCoverThumbnail
-          ? post.pageCoverThumbnail
-          : siteInfo?.pageCover
-
         return (
           <SmartLink
             key={post.id}
@@ -30,16 +27,13 @@ const LatestPostsGroup = ({ latestPosts, siteInfo }) => {
             className={'my-3 flex flex-col w-full'}>
             <div className='w-full h-24 md:h-60 overflow-hidden relative rounded-lg mb-2'>
               <LazyImage
-                src={`${headerImage}`}
+                src={getUnifiedPostCover(post, siteInfo?.title || 'latest-grid')}
                 className='object-cover w-full h-full'
               />
             </div>
 
             <div
-              className={
-                ' font-bold  overflow-x-hidden dark:text-white hover:text-indigo-600 px-2 duration-200 w-full rounded ' +
-                ' hover:text-indigo-400 cursor-pointer'
-              }>
+              className='w-full rounded px-2 font-semibold text-slate-800 transition-colors duration-200 hover:text-blue-600'>
               <div className='line-clamp-2 menu-link'>{post.title}</div>
             </div>
           </SmartLink>

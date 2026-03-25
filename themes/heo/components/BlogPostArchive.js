@@ -3,6 +3,7 @@ import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
 import TagItemMini from './TagItemMini'
+import { getUnifiedPostCover } from './tech-visual'
 
 /**
  * 博客归档列表
@@ -32,9 +33,7 @@ const BlogPostArchive = ({ posts = [], archiveTitle, siteInfo }) => {
               post.pageCoverThumbnail = siteInfo?.pageCover
             }
             const showPageCover =
-              siteConfig('HEO_POST_LIST_COVER', null, CONFIG) &&
-              post?.pageCoverThumbnail &&
-              !showPreview
+              siteConfig('HEO_POST_LIST_COVER', null, CONFIG) && !showPreview
             return (
               <div
                 key={post.id}
@@ -47,7 +46,7 @@ const BlogPostArchive = ({ posts = [], archiveTitle, siteInfo }) => {
                     <SmartLink href={post?.href} passHref legacyBehavior>
                       <LazyImage
                         className={'rounded-xl bg-center bg-cover w-40 h-24'}
-                        src={post?.pageCoverThumbnail}
+                        src={getUnifiedPostCover(post, 'archive-post')}
                       />
                     </SmartLink>
                   </div>
@@ -62,7 +61,7 @@ const BlogPostArchive = ({ posts = [], archiveTitle, siteInfo }) => {
                         className={`flex items-center ${showPreview ? 'justify-center' : 'justify-start'} hidden md:block flex-wrap dark:text-gray-500 text-gray-600 `}>
                         <SmartLink
                           passHref
-                          href={`/category/${post.category}`}
+                          href={`/category/${encodeURIComponent(post.category)}`}
                           className='cursor-pointer text-xs font-normal menu-link hover:text-indigo-700  dark:text-gray-600 transform'>
                           {post.category}
                         </SmartLink>

@@ -1,36 +1,32 @@
 import LazyImage from '@/components/LazyImage'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
-// import Image from 'next/image'
 import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
+import { getUnifiedPostCover } from './tech-visual'
 
 /**
- * 最新文章列表
- * @param posts 所有文章数据
- * @param sliceCount 截取展示的数量 默认6
- * @constructor
+ * Latest posts list in sidebar
  */
-export default function LatestPostsGroupMini({ latestPosts, siteInfo }) {
-  // 获取当前路径
+export default function LatestPostsGroupMini({ latestPosts = [] }) {
   const currentPath = useRouter().asPath
   const { locale } = useGlobal()
   const SUB_PATH = siteConfig('SUB_PATH', '')
 
-  return latestPosts ? (
+  if (!latestPosts || latestPosts.length === 0) {
+    return null
+  }
+
+  return (
     <>
-      <div className=' mb-2 px-1 flex flex-nowrap justify-between'>
-        <div>
-          <i className='mr-2 fas fas fa-history' />
+      <div className='mb-3 flex items-center justify-between'>
+        <div className='text-xs uppercase tracking-[0.16em] text-slate-500'>
           {locale.COMMON.LATEST_POSTS}
         </div>
       </div>
-      {latestPosts.map(post => {
-        const selected =
-          currentPath === `${SUB_PATH}/${post.slug}`
-        const headerImage = post?.pageCoverThumbnail
-          ? post.pageCoverThumbnail
-          : siteInfo?.pageCover
+
+      {latestPosts.slice(0, 6).map(post => {
+        const selected = currentPath === `${SUB_PATH}/${post.slug}`
 
         return (
           <SmartLink
@@ -38,27 +34,26 @@ export default function LatestPostsGroupMini({ latestPosts, siteInfo }) {
             title={post.title}
             href={post?.href}
             passHref
-            className={'my-3 flex'}>
-            <div className='w-20 h-14 overflow-hidden relative'>
+            className='my-3 flex gap-3'>
+            <div className='h-14 w-20 overflow-hidden rounded-lg border border-slate-200'>
               <LazyImage
-                src={`${headerImage}`}
-                className='object-cover w-full h-full rounded-lg'
+                src={getUnifiedPostCover(post, 'latest-post')}
+                className='h-full w-full object-cover'
               />
             </div>
+
             <div
-              className={
-                (selected ? ' text-indigo-400 ' : 'dark:text-gray-200') +
-                ' text-sm overflow-x-hidden hover:text-indigo-600 px-2 duration-200 w-full rounded ' +
-                ' hover:text-indigo-400 dark:hover:text-yellow-600 cursor-pointer items-center flex'
-              }>
-              <div>
-                <div className='line-clamp-2 menu-link'>{post.title}</div>
-                <div className='text-gray-400'>{post.lastEditedDay}</div>
-              </div>
+              className={`w-full rounded text-sm transition-colors ${
+                selected
+                  ? 'text-blue-700'
+                  : 'text-slate-700 hover:text-blue-600'
+              }`}>
+              <div className='line-clamp-2 leading-5'>{post.title}</div>
+              <div className='mt-1 text-xs text-slate-400'>{post.lastEditedDay}</div>
             </div>
           </SmartLink>
         )
       })}
     </>
-  ) : null
+  )
 }
