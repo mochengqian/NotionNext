@@ -3,12 +3,11 @@ import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
-import { getUnifiedPostCover } from './tech-visual'
 
 /**
  * Latest posts list in sidebar
  */
-export default function LatestPostsGroupMini({ latestPosts = [] }) {
+export default function LatestPostsGroupMini({ latestPosts = [], siteInfo }) {
   const currentPath = useRouter().asPath
   const { locale } = useGlobal()
   const SUB_PATH = siteConfig('SUB_PATH', '')
@@ -27,6 +26,9 @@ export default function LatestPostsGroupMini({ latestPosts = [] }) {
 
       {latestPosts.slice(0, 6).map(post => {
         const selected = currentPath === `${SUB_PATH}/${post.slug}`
+        const headerImage = post?.pageCoverThumbnail
+          ? post.pageCoverThumbnail
+          : siteInfo?.pageCover
 
         return (
           <SmartLink
@@ -37,7 +39,7 @@ export default function LatestPostsGroupMini({ latestPosts = [] }) {
             className='my-3 flex gap-3'>
             <div className='h-14 w-20 overflow-hidden rounded-lg border border-slate-200'>
               <LazyImage
-                src={getUnifiedPostCover(post, 'latest-post')}
+                src={headerImage}
                 className='h-full w-full object-cover'
               />
             </div>
