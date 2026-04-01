@@ -6,10 +6,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import DarkModeButton from './DarkModeButton'
 import Logo from './Logo'
 import { MenuListTop } from './MenuListTop'
-import RandomPostButton from './RandomPostButton'
 import ReadingProgress from './ReadingProgress'
 import SearchButton from './SearchButton'
 import SlideOver from './SlideOver'
+import { getRouteDescription } from '../evidence.helpers'
 
 /**
  * 页头：顶部导航
@@ -159,14 +159,13 @@ const Header = props => {
             <div
               className={`absolute transition-all duration-700 ${activeIndex === 1 ? 'opacity-100 mb-0' : '-mb-20 opacity-0 invisible'}`}>
               <h1 className='font-bold text-center text-light-400 dark:text-gray-400'>
-                这是一个普通打工人的个人博客.
+                {getRouteDescription(router.pathname)}
               </h1>
             </div>
           </div>
 
           {/* 右侧固定 */}
-          <div className='flex flex-shrink-0 justify-end items-center w-48'>
-            <RandomPostButton {...props} />
+          <div className='flex flex-shrink-0 justify-end items-center w-40'>
             <SearchButton {...props} />
             {!JSON.parse(siteConfig('THEME_SWITCH')) && (
               <div className='hidden md:block'>

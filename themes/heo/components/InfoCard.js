@@ -5,21 +5,22 @@ import CONFIG from '../config'
 import Card from './Card'
 
 /**
- * Brand profile card
+ * 个人信息卡片
  */
 export function InfoCard(props) {
   const { siteInfo } = props
   const profileName = siteConfig('AUTHOR')
   const stack = siteConfig(
     'HEO_INFO_CARD_STACK',
-    'AI与全栈开发工程师',
+    'Platform / Infrastructure Backend',
     CONFIG
   )
   const intro = siteConfig(
     'HEO_INFO_CARD_INTRO',
-    '记录技术、思考与成长，关注可维护系统与工程实践。',
+    '围绕网关、服务治理、可观测性、稳定性与模型接入治理持续积累。',
     CONFIG
   )
+  const actions = siteConfig('HEO_INFO_CARD_ACTIONS', [], CONFIG)
 
   const githubUrl = siteConfig('HEO_INFO_CARD_URL2', null, CONFIG)
   const moreUrl = siteConfig('HEO_INFO_CARD_URL3', null, CONFIG)
@@ -36,7 +37,7 @@ export function InfoCard(props) {
         />
         <div>
           <div className='text-[11px] uppercase tracking-[0.16em] text-slate-500'>
-            Personal Brand
+            个人说明
           </div>
           <h2 className='mt-1 text-xl font-semibold text-slate-900'>
             {profileName}
@@ -51,7 +52,17 @@ export function InfoCard(props) {
       <p className='mt-4 text-sm leading-6 text-slate-600'>{intro}</p>
 
       <div className='mt-5 flex gap-2'>
-        {githubUrl && (
+        {actions?.map(action => (
+          <SmartLink
+            key={action.title}
+            href={action.href}
+            target={action.target}
+            className='inline-flex items-center rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-100'>
+            {action.title}
+          </SmartLink>
+        ))}
+
+        {!actions?.length && githubUrl && (
           <SmartLink
             href={githubUrl}
             className='inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-blue-200 hover:text-blue-600'>
@@ -60,11 +71,11 @@ export function InfoCard(props) {
           </SmartLink>
         )}
 
-        {moreUrl && (
+        {!actions?.length && moreUrl && (
           <SmartLink
             href={moreUrl}
             className='inline-flex items-center rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-100'>
-            About
+            关于
           </SmartLink>
         )}
       </div>

@@ -39,7 +39,7 @@ export default function SideRight(props) {
 
         <Card className='wow fadeInUp bg-white border-slate-200 shadow-sm'>
           <div className='mb-3 text-xs uppercase tracking-[0.16em] text-slate-500'>
-            Categories
+            栏目
           </div>
           <CategoryGroup
             currentCategory={currentCategory}
@@ -49,7 +49,7 @@ export default function SideRight(props) {
 
         <Card className='wow fadeInUp bg-white border-slate-200 shadow-sm'>
           <div className='mb-3 text-xs uppercase tracking-[0.16em] text-slate-500'>
-            Tags
+            主题词
           </div>
           <TagGroups tags={sortedTags} currentTag={currentTag} />
         </Card>

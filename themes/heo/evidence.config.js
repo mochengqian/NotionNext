@@ -1,0 +1,699 @@
+export const EVIDENCE_CONFIG = {
+  githubUrl: 'https://github.com/MoChengqian',
+  noticeBar: [
+    {
+      title: '招聘阅读路径：面试阅读 / 开源贡献 / 系列文章',
+      url: '/interview-reading'
+    }
+  ],
+  navLinks: [
+    { name: '首页', href: '/', show: true },
+    { name: '面试阅读', href: '/interview-reading', show: true },
+    { name: '开源贡献', href: '/open-source', show: true },
+    { name: '系列', href: '/series', show: true },
+    { name: '分类', href: '/category', show: true },
+    { name: '标签', href: '/tag', show: true },
+    { name: '归档', href: '/archive', show: true },
+    { name: '关于', href: '/about', show: true },
+    { name: '搜索', href: '/search', show: true }
+  ],
+  routeDescriptions: {
+    '/': '证据系统入口 · 面试阅读 / 开源贡献 / 系列文章',
+    '/interview-reading': '面试导读 · 路线、代表作与推荐阅读顺序',
+    '/open-source': '开源贡献 · PR / Issue / Review / 复盘入口',
+    '/series': '系列索引 · 源码 / 治理 / 可观测 / 观点',
+    '/about': '个人说明书 · 技术主线、边界与入口',
+    '/archive': '时间线归档 · 按时间回看持续积累',
+    '/category': '栏目索引 · 以主题而非泛推荐组织内容',
+    '/tag': '主题词索引 · 收敛长期技术词表'
+  },
+  hero: {
+    statement:
+      '面向平台 / 基础设施后端方向成长，关注网关、服务治理、可观测性与稳定性，并把学习、实验、开源贡献写成可复现、可评审的工程证据。',
+    keywords: [
+      'Dubbo',
+      'Gateway',
+      'Traffic Governance',
+      'Observability',
+      'Reliability',
+      'AI Gateway'
+    ],
+    actions: [
+      {
+        title: '面试阅读',
+        href: '/interview-reading',
+        variant: 'primary'
+      },
+      {
+        title: '开源贡献',
+        href: '/open-source',
+        variant: 'secondary'
+      },
+      {
+        title: '系列文章',
+        href: '/series',
+        variant: 'secondary'
+      },
+      {
+        title: 'GitHub',
+        href: 'https://github.com/MoChengqian',
+        variant: 'ghost',
+        target: '_blank'
+      }
+    ],
+    panelTitle: '招聘阅读路径',
+    panelPoints: [
+      {
+        title: '先看定位',
+        summary: '用一页说明方向、路线、代表作与推荐阅读顺序。'
+      },
+      {
+        title: '再看贡献',
+        summary: '把 PR / Issue / Review / 复盘集中到同一入口。'
+      },
+      {
+        title: '最后下钻',
+        summary: '围绕 Dubbo、网关治理、可观测与稳定性持续展开。'
+      }
+    ]
+  },
+  infoCard: {
+    stack: 'Platform / Infrastructure Backend',
+    intro:
+      '以网关、服务治理、可观测性、稳定性和模型接入治理为主线，把过程沉淀成可复现、可评审的工程证据。',
+    actions: [
+      { title: '面试阅读', href: '/interview-reading' },
+      { title: '开源贡献', href: '/open-source' },
+      {
+        title: 'GitHub',
+        href: 'https://github.com/MoChengqian',
+        target: '_blank'
+      }
+    ]
+  },
+  primaryCategories: [
+    '证据库',
+    '源码与协议',
+    '流量与服务治理',
+    '可观测性与稳定性',
+    '开源贡献',
+    '观点与模型'
+  ],
+  focusTags: [
+    'gateway',
+    'service-discovery',
+    'metadata',
+    'traffic-governance',
+    'observability',
+    'reliability',
+    'sre',
+    'platform-engineering',
+    'dubbo',
+    'kubernetes',
+    'opentelemetry',
+    'prometheus',
+    'tracing',
+    'rate-limit',
+    'circuit-breaker',
+    'retry',
+    'timeout'
+  ],
+  startCards: [
+    {
+      title: '面试阅读',
+      href: '/interview-reading',
+      summary: '先看我是谁、路线怎么展开、代表作品放在哪里。',
+      meta: '路线 / 代表作 / 阅读顺序'
+    },
+    {
+      title: '开源贡献',
+      href: '/open-source',
+      summary: '集中看 Dubbo 生态中的 PR、Issue、Review 与复盘。',
+      meta: 'PR / Issue / Review / 复盘'
+    },
+    {
+      title: '系列文章',
+      href: '/series',
+      summary: '按主题树继续下钻 Dubbo、网关治理、可观测实验。',
+      meta: '源码 / 治理 / 实验'
+    }
+  ],
+  seriesEntries: [
+    {
+      id: 'dubbo-source',
+      title: 'Dubbo 源码',
+      href: '/series#dubbo-source',
+      summary: '围绕协议、元数据、注册发现、调用链与扩展点展开。',
+      match: {
+        categories: ['源码与协议'],
+        keywords: ['dubbo', 'triple', 'rpc', 'metadata', 'protocol', '源码']
+      }
+    },
+    {
+      id: 'gateway-governance',
+      title: '网关治理',
+      href: '/series#gateway-governance',
+      summary: '关注流量入口、路由策略、限流熔断、重试超时与灰度治理。',
+      match: {
+        categories: ['流量与服务治理'],
+        keywords: [
+          'gateway',
+          'traffic',
+          'governance',
+          'rate-limit',
+          'circuit-breaker',
+          'retry',
+          'timeout',
+          '网关',
+          '治理'
+        ]
+      }
+    },
+    {
+      id: 'observability-reliability',
+      title: '可观测实验',
+      href: '/series#observability-reliability',
+      summary: '沉淀 tracing、metrics、logging、压测、稳定性实验与复盘。',
+      match: {
+        categories: ['可观测性与稳定性'],
+        keywords: [
+          'observability',
+          'reliability',
+          'tracing',
+          'prometheus',
+          'opentelemetry',
+          'sre',
+          '压测',
+          '实验',
+          '复盘',
+          '稳定性'
+        ]
+      }
+    }
+  ],
+  featuredRoles: [
+    {
+      key: 'interview-reading',
+      type: 'page',
+      label: '导读',
+      item: {
+        title: '面试阅读导读',
+        href: '/interview-reading',
+        summary: '给面试官的第一入口，集中回答方向、路线、代表作品与推荐顺序。',
+        meta: '静态导读页'
+      }
+    },
+    {
+      key: 'open-source',
+      type: 'page',
+      label: '贡献',
+      item: {
+        title: '开源贡献证据页',
+        href: '/open-source',
+        summary: '把 Dubbo 生态中的 PR、Issue、Review 与复盘放在同一阅读链路里。',
+        meta: '静态索引页'
+      }
+    },
+    {
+      key: 'reliability-experiment',
+      type: 'post',
+      label: '实验',
+      match: {
+        categories: ['证据库', '可观测性与稳定性'],
+        keywords: [
+          '压测',
+          '实验',
+          '复盘',
+          '故障',
+          'reliability',
+          'observability',
+          'timeout',
+          'retry',
+          'rate-limit',
+          'circuit-breaker'
+        ]
+      },
+      fallback: {
+        title: '稳定性实验代表作',
+        href: '/series#observability-reliability',
+        summary: '优先放压测、故障复盘、稳定性实验与观测链路验证类文章。',
+        meta: '可先从系列入口继续阅读'
+      }
+    },
+    {
+      key: 'source-analysis',
+      type: 'post',
+      label: '源码',
+      match: {
+        categories: ['源码与协议'],
+        keywords: [
+          'dubbo',
+          'triple',
+          'rpc',
+          'metadata',
+          'service-discovery',
+          '源码',
+          '协议'
+        ]
+      },
+      fallback: {
+        title: '源码分析代表作',
+        href: '/series#dubbo-source',
+        summary: '优先放 Dubbo / 协议 / 元数据 / 服务发现机制分析类文章。',
+        meta: '可先从系列入口继续阅读'
+      }
+    },
+    {
+      key: 'thinking',
+      type: 'post',
+      label: '思考',
+      match: {
+        categories: ['观点与模型'],
+        keywords: [
+          'model',
+          'ai gateway',
+          '观点',
+          '模型',
+          '取舍',
+          '设计',
+          '思考'
+        ]
+      },
+      fallback: {
+        title: '思考型文章代表作',
+        href: '/series#perspectives-models',
+        summary: '优先放路线取舍、架构判断、AI Gateway 与模型接入治理思考。',
+        meta: '可先从系列入口继续阅读'
+      }
+    }
+  ],
+  pages: {
+    interviewReading: {
+      slug: 'interview-reading',
+      eyebrow: '面试导读',
+      title: '面试阅读',
+      description:
+        '给面试官的一页导读，先看定位、技术主线、代表作品，再按顺序继续阅读具体文章与开源贡献。',
+      actions: [
+        { title: '开源贡献', href: '/open-source' },
+        { title: '系列索引', href: '/series' },
+        {
+          title: 'GitHub',
+          href: 'https://github.com/MoChengqian',
+          target: '_blank'
+        }
+      ],
+      sections: [
+        {
+          type: 'text',
+          id: 'who-am-i',
+          title: '我是谁',
+          paragraphs: [
+            '我目前以平台 / 基础设施后端方向为主线，重点关注网关、服务治理、可观测性、稳定性，以及模型接入治理这一条链路。',
+            '博客不是用来堆泛化教程，而是把学习过程、实验记录、故障复盘和开源参与整理成可复现、可评审的工程证据。'
+          ]
+        },
+        {
+          type: 'text',
+          id: 'roadmap',
+          title: '我的路线',
+          paragraphs: [
+            '路线从 Dubbo / RPC / 服务发现与元数据出发，逐步延伸到网关与流量治理，再进入 tracing、metrics、logging、SLO 等可观测与稳定性主题。',
+            '最近在继续补齐 AI Gateway / Model Routing / Token & Cost Governance / Policy Enforcement 这类模型接入治理问题，目标不是追热点，而是把平台入口的治理链路补完整。'
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'representative-work',
+          title: '代表作品',
+          items: [
+            {
+              title: '压测 / 稳定性实验代表作',
+              href: '/series#observability-reliability',
+              summary: '优先放压测设计、故障注入、观测链路验证、瓶颈定位与复盘类文章。',
+              meta: '证据库 / 可观测性与稳定性'
+            },
+            {
+              title: '源码分析代表作',
+              href: '/series#dubbo-source',
+              summary: '优先放 Dubbo、协议、元数据、服务发现和调用链机制分析。',
+              meta: '源码与协议'
+            },
+            {
+              title: '治理设计代表作',
+              href: '/series#gateway-governance',
+              summary: '优先放网关入口、路由策略、限流熔断、重试超时等治理设计。',
+              meta: '流量与服务治理'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'open-source-entry',
+          title: '开源贡献入口',
+          items: [
+            {
+              title: 'Dubbo 生态贡献概览',
+              href: '/open-source',
+              summary: '把 PR / Issue / Review / 复盘放在同一个证据页，方便连续阅读。',
+              meta: 'PR / Issue / Review / 复盘'
+            }
+          ]
+        },
+        {
+          type: 'steps',
+          id: 'reading-order',
+          title: '推荐阅读顺序',
+          items: [
+            {
+              title: '先看这一页',
+              summary: '确认方向、技术主线、代表作品和推荐顺序。'
+            },
+            {
+              title: '再看开源贡献',
+              summary: '把真实参与过的贡献链路集中浏览。'
+            },
+            {
+              title: '然后看 Dubbo / 网关 / 可观测系列',
+              summary: '按主题树继续下钻到具体文章。'
+            },
+            {
+              title: '最后回到归档或最新文章',
+              summary: '按时间线观察持续积累，而不是只看一次性展示。'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'links',
+          title: 'GitHub / 博客 / 联系方式入口',
+          items: [
+            {
+              title: 'GitHub',
+              href: 'https://github.com/MoChengqian',
+              target: '_blank',
+              summary: '代码、贡献记录与仓库入口。',
+              meta: '外部链接'
+            },
+            {
+              title: '博客首页',
+              href: '/',
+              summary: '返回证据系统入口页，按首页路径继续浏览。',
+              meta: '站内入口'
+            },
+            {
+              title: '联系方式（待补充）',
+              summary: '建议后续补充邮箱或 LinkedIn，便于招聘场景直接联系。',
+              meta: '联系入口'
+            }
+          ]
+        }
+      ]
+    },
+    openSource: {
+      slug: 'open-source',
+      eyebrow: '开源贡献',
+      title: '开源贡献',
+      description:
+        '把 Dubbo 生态中的贡献事实集中成一个可持续补充的证据页，优先展示 PR、Issue、Review 与复盘。',
+      actions: [
+        { title: '面试阅读', href: '/interview-reading' },
+        { title: '系列索引', href: '/series' },
+        {
+          title: 'GitHub',
+          href: 'https://github.com/MoChengqian',
+          target: '_blank'
+        }
+      ],
+      sections: [
+        {
+          type: 'text',
+          id: 'overview',
+          title: 'Dubbo 生态贡献概览',
+          paragraphs: [
+            '这里用于集中展示我在 Dubbo 生态中的 PR、Issue、Review 与相关复盘。目标不是堆数量，而是让每一条贡献都能说明我如何理解问题、验证方案、推进闭环。',
+            '当前先把阅读结构和入口固定下来，后续可以逐步补充真实链接、截图、讨论串和对应的文章复盘。'
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'entries',
+          title: 'PR / Issue / Review / 复盘入口',
+          items: [
+            {
+              title: 'PR 列表',
+              href: 'https://github.com/apache/dubbo-go/pulls?q=is%3Apr',
+              target: '_blank',
+              summary: '后续补真实参与的 PR 记录、链接和背景说明。',
+              meta: '外部入口'
+            },
+            {
+              title: 'Issue / Discussion',
+              href: 'https://github.com/apache/dubbo-go/issues',
+              target: '_blank',
+              summary: '后续补问题定位、讨论参与和问题闭环记录。',
+              meta: '外部入口'
+            },
+            {
+              title: 'Review / Comment',
+              summary: '后续补 review 记录，说明我如何看设计、兼容性和测试风险。',
+              meta: '后续补充'
+            },
+            {
+              title: '贡献复盘',
+              href: '/series#perspectives-models',
+              summary: '后续用文章形式沉淀为什么这样改、踩过哪些坑、有哪些权衡。',
+              meta: '站内沉淀入口'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'future',
+          title: '后续扩展方向',
+          items: [
+            {
+              title: '贡献时间线',
+              summary: '按时间补齐每次参与的上下文、动作和结果。',
+              meta: '后续补充'
+            },
+            {
+              title: '问题域归档',
+              summary: '按协议、注册发现、网关治理、观测链路等主题归类。',
+              meta: '后续补充'
+            },
+            {
+              title: '证据补件',
+              summary: 'PR 链接、Issue 链接、review 截图、实验文章与提交说明。',
+              meta: '后续补充'
+            }
+          ]
+        }
+      ]
+    },
+    series: {
+      slug: 'series',
+      eyebrow: '系列索引',
+      title: '系列',
+      description:
+        '按主题树组织长期积累，而不是按“热门 / 教程 / 推荐”这类泛入口组织首页内容。',
+      actions: [
+        { title: '面试阅读', href: '/interview-reading' },
+        { title: '开源贡献', href: '/open-source' },
+        { title: '归档', href: '/archive' }
+      ],
+      sections: [
+        {
+          type: 'cards',
+          id: 'dubbo-source',
+          title: 'Dubbo 源码与机制',
+          items: [
+            {
+              title: '协议与调用链',
+              href: '/category/源码与协议',
+              summary: 'Triple / RPC / 协议栈 / 请求处理链路。',
+              meta: '栏目入口'
+            },
+            {
+              title: '元数据与服务发现',
+              href: '/tag/metadata',
+              summary: 'Metadata / Service Discovery / 注册发现与订阅机制。',
+              meta: '主题词入口'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'gateway-governance',
+          title: '网关 / 流量治理',
+          items: [
+            {
+              title: '入口治理',
+              href: '/category/流量与服务治理',
+              summary: '路由、分流、鉴权、限流、熔断、重试与超时策略。',
+              meta: '栏目入口'
+            },
+            {
+              title: '治理母题',
+              href: '/tag/traffic-governance',
+              summary: 'traffic-governance / rate-limit / circuit-breaker / retry / timeout。',
+              meta: '主题词入口'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'observability-reliability',
+          title: '可观测性 / 稳定性',
+          items: [
+            {
+              title: '观测链路',
+              href: '/category/可观测性与稳定性',
+              summary: 'metrics / tracing / logging / OpenTelemetry / Prometheus。',
+              meta: '栏目入口'
+            },
+            {
+              title: '实验与复盘',
+              href: '/tag/observability',
+              summary: '压测、实验、故障注入、稳定性分析与复盘文章。',
+              meta: '主题词入口'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'perspectives-models',
+          title: '观点与模型',
+          items: [
+            {
+              title: '路线判断',
+              href: '/category/观点与模型',
+              summary: '如何选题、如何取舍、如何判断一个方向是否值得继续深入。',
+              meta: '栏目入口'
+            },
+            {
+              title: '模型接入治理',
+              href: '/tag/platform-engineering',
+              summary: 'AI Gateway / Model Routing / Policy / Cost / Reliability 的平台化思考。',
+              meta: '主题词入口'
+            }
+          ]
+        }
+      ]
+    },
+    about: {
+      slug: 'about',
+      eyebrow: '个人说明书',
+      title: '关于',
+      description:
+        '一份可核验的个人说明书，说明我当前的技术主线、取舍边界，以及你应该从哪里开始阅读。',
+      actions: [
+        { title: '面试阅读', href: '/interview-reading' },
+        { title: '开源贡献', href: '/open-source' },
+        { title: '系列索引', href: '/series' }
+      ],
+      sections: [
+        {
+          type: 'text',
+          id: 'positioning',
+          title: '一句话定位',
+          paragraphs: [
+            '以平台 / 基础设施后端方向为主线，围绕网关、服务治理、可观测性、稳定性与模型接入治理持续积累，并把过程沉淀为可复现、可评审的工程证据。'
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'theme-tree',
+          title: '技术主线（母题树）',
+          items: [
+            {
+              title: '源码与协议',
+              href: '/series#dubbo-source',
+              summary: '从 Dubbo / Triple / Metadata / Service Discovery 理解基础机制。',
+              meta: '底层机制'
+            },
+            {
+              title: '流量与服务治理',
+              href: '/series#gateway-governance',
+              summary: '把入口流量、路由策略与治理能力组织起来。',
+              meta: '治理链路'
+            },
+            {
+              title: '可观测性与稳定性',
+              href: '/series#observability-reliability',
+              summary: '通过实验、观测和复盘验证系统行为。',
+              meta: '验证链路'
+            },
+            {
+              title: '模型接入治理',
+              href: '/series#perspectives-models',
+              summary: '把 AI Gateway 视为新入口问题，而非单点接 SDK。',
+              meta: '延伸方向'
+            }
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'three-entries',
+          title: '三个入口',
+          items: [
+            {
+              title: '面试阅读',
+              href: '/interview-reading',
+              summary: '先看路线、代表作与推荐顺序。',
+              meta: '导读入口'
+            },
+            {
+              title: '开源贡献',
+              href: '/open-source',
+              summary: '集中看真实参与的开源贡献事实。',
+              meta: '证据入口'
+            },
+            {
+              title: '系列索引',
+              href: '/series',
+              summary: '按主题树继续下钻到具体文章。',
+              meta: '内容入口'
+            }
+          ]
+        },
+        {
+          type: 'text',
+          id: 'boundary',
+          title: '学习边界与路线取舍',
+          paragraphs: [
+            '我更关注可维护系统、复杂链路治理和工程验证，而不是追求覆盖一切技术栈的宽而浅展示。',
+            '这意味着我会优先把时间投入到协议、服务治理、网关入口、观测与稳定性上，再决定哪些问题值得继续扩展到 AI Gateway 与模型接入治理。'
+          ]
+        },
+        {
+          type: 'cards',
+          id: 'links',
+          title: 'GitHub / 联系方式',
+          items: [
+            {
+              title: 'GitHub',
+              href: 'https://github.com/MoChengqian',
+              target: '_blank',
+              summary: '代码、仓库与开源活动入口。',
+              meta: '外部链接'
+            },
+            {
+              title: '博客首页',
+              href: '/',
+              summary: '返回证据系统入口页。',
+              meta: '站内入口'
+            },
+            {
+              title: '联系方式（待补充）',
+              summary: '建议补充邮箱或 LinkedIn，增强招聘沟通闭环。',
+              meta: '联系入口'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+export default EVIDENCE_CONFIG

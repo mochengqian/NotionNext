@@ -1,13 +1,16 @@
 import SmartLink from '@/components/SmartLink'
+import { buildPrimaryCategories } from '../evidence.helpers'
 
 const CategoryGroup = ({ currentCategory, categories = [] }) => {
-  if (!categories || categories.length === 0) {
+  const primaryCategories = buildPrimaryCategories(categories)
+
+  if (!primaryCategories || primaryCategories.length === 0) {
     return <></>
   }
 
   return (
     <div id='category-list' className='space-y-1'>
-      {categories.map(category => {
+      {primaryCategories.map(category => {
         let normalizedCategory = currentCategory
         try {
           normalizedCategory = decodeURIComponent(currentCategory)
@@ -33,7 +36,9 @@ const CategoryGroup = ({ currentCategory, categories = [] }) => {
               />
               {category.name}
             </span>
-            <span className='text-xs'>{category.count}</span>
+            <span className='text-xs'>
+              {category.count > 0 ? category.count : '未归档'}
+            </span>
           </SmartLink>
         )
       })}

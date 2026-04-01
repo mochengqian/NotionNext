@@ -3,6 +3,7 @@ import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
+import { buildPrimaryCategories } from '../evidence.helpers'
 
 /**
  * 博客列表上方嵌入条
@@ -12,6 +13,7 @@ import { useRef, useState } from 'react'
 export default function CategoryBar(props) {
   const { categoryOptions, border = true } = props
   const { locale } = useGlobal()
+  const primaryCategories = buildPrimaryCategories(categoryOptions)
   const [scrollRight, setScrollRight] = useState(false)
   // 创建一个ref引用
   const categoryBarItemsRef = useRef(null)
@@ -39,8 +41,12 @@ export default function CategoryBar(props) {
         ref={categoryBarItemsRef}
         className='scroll-smooth max-w-4xl rounded-lg scroll-hidden flex justify-start flex-nowrap items-center overflow-x-scroll'>
         <MenuItem href='/' name={locale.NAV.INDEX} />
-        {categoryOptions?.map((c, index) => (
-          <MenuItem key={index} href={`/category/${c.name}`} name={c.name} />
+        {primaryCategories?.map((c, index) => (
+          <MenuItem
+            key={index}
+            href={`/category/${encodeURIComponent(c.name)}`}
+            name={c.name}
+          />
         ))}
       </div>
 
@@ -58,7 +64,7 @@ export default function CategoryBar(props) {
         <SmartLink
           href='/category'
           className='whitespace-nowrap font-bold text-gray-900 dark:text-white transition-colors duration-200 hover:text-indigo-600 dark:hover:text-yellow-600'>
-          {locale.MENU.CATEGORY}
+          全部栏目
         </SmartLink>
       </div>
     </div>

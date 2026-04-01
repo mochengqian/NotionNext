@@ -6,6 +6,7 @@ import { MenuItemDrop } from './MenuItemDrop'
 export const MenuListTop = props => {
   const { customNav, customMenu } = props
   const { locale } = useGlobal()
+  const configuredLinks = siteConfig('HEO_NAV_LINKS', null, CONFIG)
 
   let links = [
     {
@@ -31,12 +32,19 @@ export const MenuListTop = props => {
     }
   ]
 
-  if (customNav) {
+  if (Array.isArray(configuredLinks) && configuredLinks.length > 0) {
+    links = configuredLinks
+  }
+
+  if (customNav && (!Array.isArray(configuredLinks) || configuredLinks.length === 0)) {
     links = links.concat(customNav)
   }
 
   // 如果 开启自定义菜单，则覆盖Page生成的菜单
-  if (siteConfig('CUSTOM_MENU')) {
+  if (
+    (!Array.isArray(configuredLinks) || configuredLinks.length === 0) &&
+    siteConfig('CUSTOM_MENU')
+  ) {
     links = customMenu
   }
 

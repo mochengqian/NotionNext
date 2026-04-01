@@ -1,5 +1,6 @@
 import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
+import { buildFocusTags } from '../evidence.helpers'
 
 /**
  * Tag group
@@ -7,11 +8,12 @@ import { useRouter } from 'next/router'
 const TagGroups = ({ tags = [], className }) => {
   const router = useRouter()
   const { tag: currentTag } = router.query
-  if (!tags || tags.length === 0) return <></>
+  const focusTags = buildFocusTags(tags)
+  if (!focusTags || focusTags.length === 0) return <></>
 
   return (
     <div id='tags-group' className='flex flex-wrap gap-2'>
-      {tags.map((tag, index) => {
+      {focusTags.map((tag, index) => {
         const selected = currentTag === tag.name
 
         return (

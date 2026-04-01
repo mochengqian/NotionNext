@@ -89,7 +89,7 @@ const nextConfig = {
     : process.env.NEXT_BUILD_STANDALONE === 'true'
       ? 'standalone'
       : undefined,
-  staticPageGenerationTimeout: 120,
+  staticPageGenerationTimeout: 600,
 
   // 性能优化配置
   compress: true,

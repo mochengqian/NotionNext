@@ -24,6 +24,7 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import BlogPostArchive from './components/BlogPostArchive'
+import EvidenceHome from './components/EvidenceHome'
 import BlogPostListPage from './components/BlogPostListPage'
 import BlogPostListScroll from './components/BlogPostListScroll'
 import CategoryBar from './components/CategoryBar'
@@ -44,6 +45,7 @@ import CONFIG from './config'
 import { Style } from './style'
 import AISummary from '@/components/AISummary'
 import ArticleExpirationNotice from '@/components/ArticleExpirationNotice'
+import { buildFocusTags, buildPrimaryCategories } from './evidence.helpers'
 
 /**
  * 基础布局 采用上中下布局，移动端使用顶部侧边导航栏
@@ -57,6 +59,12 @@ const LayoutBase = props => {
   // 全屏模式下的最大宽度
   const { fullWidth, isDarkMode } = useGlobal()
   const router = useRouter()
+  const hiddenPostHeaderRoutes = new Set([
+    '/interview-reading',
+    '/open-source',
+    '/series',
+    '/about'
+  ])
 
   const headerSlot = (
     <header>
@@ -70,7 +78,9 @@ const LayoutBase = props => {
           <Hero {...props} />
         </>
       ) : null}
-      {fullWidth ? null : <PostHeader {...props} isDarkMode={isDarkMode} />}
+      {fullWidth || hiddenPostHeaderRoutes.has(router.route) ? null : (
+        <PostHeader {...props} isDarkMode={isDarkMode} />
+      )}
     </header>
   )
 
@@ -140,8 +150,21 @@ const LayoutBase = props => {
 const LayoutIndex = props => {
   return (
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
-      {/* 文章分类条 */}
-      <CategoryBar {...props} />
+      <EvidenceHome {...props} />
+      <section className='space-y-4'>
+        <div className='px-1'>
+          <div className='text-xs uppercase tracking-[0.16em] text-slate-500'>
+            时间线更新
+          </div>
+          <h2 className='mt-1 text-2xl font-semibold text-slate-900'>
+            最新文章
+          </h2>
+          <p className='mt-2 max-w-3xl text-sm leading-6 text-slate-600'>
+            保留按时间线持续阅读的体验。重点入口在前，更新流仍然在后，方便继续判断是否在稳定积累。
+          </p>
+        </div>
+        <CategoryBar {...props} />
+      </section>
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
@@ -424,20 +447,24 @@ const Layout404 = props => {
 const LayoutCategoryIndex = props => {
   const { categoryOptions } = props
   const { locale } = useGlobal()
+  const categories = buildPrimaryCategories(categoryOptions)
 
   return (
     <div id='category-outer-wrapper' className='mt-8 px-5 md:px-0'>
       <div className='text-4xl font-extrabold dark:text-gray-200 mb-5'>
         {locale.COMMON.CATEGORY}
       </div>
+      <p className='mb-6 max-w-3xl text-sm leading-6 text-slate-600'>
+        一级栏目按证据型信息架构收敛。即使 Notion 端还没补齐，前端也先保留固定入口和稳定命名，后续补内容即可。
+      </p>
       <div
         id='category-list'
         className='duration-200 flex flex-wrap m-10 justify-center'>
-        {categoryOptions?.map(category => {
+        {categories?.map(category => {
           return (
             <SmartLink
               key={category.name}
-              href={`/category/${category.name}`}
+              href={`/category/${encodeURIComponent(category.name)}`}
               passHref
               legacyBehavior>
               <div
@@ -447,7 +474,7 @@ const LayoutCategoryIndex = props => {
                 <HashTag className={'w-5 h-5 stroke-gray-500 stroke-2'} />
                 {category.name}
                 <div className='bg-[#f1f3f8] ml-1 px-2 rounded-lg group-hover:text-indigo-600 '>
-                  {category.count}
+                  {category.count > 0 ? category.count : '未归档'}
                 </div>
               </div>
             </SmartLink>
@@ -466,20 +493,24 @@ const LayoutCategoryIndex = props => {
 const LayoutTagIndex = props => {
   const { tagOptions } = props
   const { locale } = useGlobal()
+  const tags = buildFocusTags(tagOptions)
 
   return (
     <div id='tag-outer-wrapper' className='px-5 mt-8 md:px-0'>
       <div className='text-4xl font-extrabold dark:text-gray-200 mb-5'>
         {locale.COMMON.TAGS}
       </div>
+      <p className='mb-6 max-w-3xl text-sm leading-6 text-slate-600'>
+        标签词表优先围绕长期主题积累收敛，减少泛化标签，方便按问题域继续补文和回看。
+      </p>
       <div
         id='tag-list'
         className='duration-200 flex flex-wrap space-x-5 space-y-5 m-10 justify-center'>
-        {tagOptions.map(tag => {
+        {tags.map(tag => {
           return (
             <SmartLink
               key={tag.name}
-              href={`/tag/${tag.name}`}
+              href={`/tag/${encodeURIComponent(tag.name)}`}
               passHref
               legacyBehavior>
               <div

@@ -11,9 +11,10 @@ const Tag = props => {
 export async function getStaticProps({ params: { tag, page }, locale }) {
   const from = 'tag-page-props'
   const props = await fetchGlobalAllData({ from, locale })
+  const allPages = Array.isArray(props?.allPages) ? props.allPages : []
   // 过滤状态、标签
-  props.posts = props.allPages
-    ?.filter(page => page.type === 'Post' && page.status === 'Published')
+  props.posts = allPages
+    .filter(page => page.type === 'Post' && page.status === 'Published')
     .filter(post => post && post?.tags && post?.tags.includes(tag))
   // 处理文章数
   props.postCount = props.posts.length
@@ -43,16 +44,18 @@ export async function getStaticPaths() {
   const from = 'tag-page-static-path'
   const { tagOptions, allPages, NOTION_CONFIG } = await fetchGlobalAllData({ from })
   const paths = []
-  tagOptions?.forEach(tag => {
+  const safeTagOptions = Array.isArray(tagOptions) ? tagOptions : []
+  const safeAllPages = Array.isArray(allPages) ? allPages : []
+  const postsPerPage = siteConfig('POSTS_PER_PAGE', 12, NOTION_CONFIG) || 12
+
+  safeTagOptions.forEach(tag => {
     // 过滤状态类型
-    const tagPosts = allPages
-      ?.filter(page => page.type === 'Post' && page.status === 'Published')
+    const tagPosts = safeAllPages
+      .filter(page => page.type === 'Post' && page.status === 'Published')
       .filter(post => post && post?.tags && post?.tags.includes(tag.name))
     // 处理文章页数
     const postCount = tagPosts.length
-    const totalPages = Math.ceil(
-      postCount / siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
-    )
+    const totalPages = Math.ceil(postCount / postsPerPage)
     if (totalPages > 1) {
       for (let i = 1; i <= totalPages; i++) {
         paths.push({ params: { tag: tag.name, page: '' + i } })

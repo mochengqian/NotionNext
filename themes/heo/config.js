@@ -1,3 +1,5 @@
+import EVIDENCE_CONFIG from './evidence.config'
+
 const CONFIG = {
   HEO_HOME_POST_TWO_COLS: true, // 首页博客两列显示，若为false则只显示一列
   HEO_LOADING_COVER: true, // 页面加载的遮罩动画
@@ -7,9 +9,7 @@ const CONFIG = {
   HEO_SITE_CREATE_TIME: '2026-02-03', // 建站日期，用于计算网站运行的第几天
 
   // 首页顶部通知条滚动内容，如不需要可以留空 []
-  HEO_NOTICE_BAR: [
-    { title: '欢迎来到莫承潜的博客', url: 'https://github.com/MoChengqian' }
-  ],
+  HEO_NOTICE_BAR: EVIDENCE_CONFIG.noticeBar,
 
   // 英雄区左右侧组件颠倒位置
   HEO_HERO_REVERSE: false,
@@ -17,39 +17,47 @@ const CONFIG = {
   HEO_HERO_BODY_REVERSE: false,
 
   // 英雄区(首页顶部大卡)
-  HEO_HERO_TITLE_1: '莫承潜',
-  HEO_HERO_TITLE_2: '个人博客',
-  HEO_HERO_TITLE_3: '记录学习、经验、成长',
-  HEO_HERO_TITLE_4: '欢迎来到',
-  HEO_HERO_TITLE_5: '我的世界!',
-  HEO_HERO_TITLE_LINK: 'https://notion-next-iota-amber-43.vercel.app/article/0',
+  HEO_HERO_TITLE_1: '证据系统',
+  HEO_HERO_TITLE_2: '入口页',
+  HEO_HERO_TITLE_3: '服务于招聘阅读、开源贡献与长期主题积累',
+  HEO_HERO_TITLE_4: '先看路径',
+  HEO_HERO_TITLE_5: '再下钻内容',
+  HEO_HERO_TITLE_LINK: '/interview-reading',
+  HEO_HERO_STATEMENT: EVIDENCE_CONFIG.hero.statement,
+  HEO_HERO_KEYWORDS: EVIDENCE_CONFIG.hero.keywords,
+  HEO_HERO_ACTIONS: EVIDENCE_CONFIG.hero.actions,
+  HEO_HERO_PANEL_TITLE: EVIDENCE_CONFIG.hero.panelTitle,
+  HEO_HERO_PANEL_POINTS: EVIDENCE_CONFIG.hero.panelPoints,
 
   // 英雄区遮罩文字
-  HEO_HERO_COVER_TITLE: '随机看一篇',
+  HEO_HERO_COVER_TITLE: '进入阅读',
 
   // 英雄区显示三个置顶分类
-  HEO_HERO_CATEGORY_1: { title: '技术', url: '/tag/技术' },
-  HEO_HERO_CATEGORY_2: { title: '生活', url: '/tag/生活' },
-  HEO_HERO_CATEGORY_3: { title: '随笔', url: '/tag/随笔' },
+  HEO_HERO_CATEGORY_1: { title: '面试阅读', url: '/interview-reading' },
+  HEO_HERO_CATEGORY_2: { title: '开源贡献', url: '/open-source' },
+  HEO_HERO_CATEGORY_3: { title: '系列文章', url: '/series' },
 
   // 英雄区右侧推荐文章标签, 例如 [推荐] , 最多六篇文章; 若留空白''，则推荐最近更新文章
-  HEO_HERO_RECOMMEND_POST_TAG: '推荐',
+  HEO_HERO_RECOMMEND_POST_TAG: '证据',
   HEO_HERO_RECOMMEND_POST_SORT_BY_UPDATE_TIME: false, // 推荐文章排序，为`true`时将强制按最后修改时间倒序
   HERO_RECOMMEND_COVER: '/images/hero-mountain.png', // 英雄区右侧图片
 
   // 右侧个人资料卡牌欢迎语，点击可自动切换
   HEO_INFOCARD_GREETINGS: [
-    '你好！我是莫承潜',
-    '你赢了兄弟',
-    '记录学习、设计与生活'
+    '你好，我是莫承潜',
+    '关注网关、治理、可观测与稳定性',
+    '这里优先展示工程证据，而不是泛推荐'
   ],
+  HEO_INFO_CARD_STACK: EVIDENCE_CONFIG.infoCard.stack,
+  HEO_INFO_CARD_INTRO: EVIDENCE_CONFIG.infoCard.intro,
+  HEO_INFO_CARD_ACTIONS: EVIDENCE_CONFIG.infoCard.actions,
 
   // 个人资料底部按钮
   //HEO_INFO_CARD_URL1: '/about',
   //HEO_INFO_CARD_ICON1: 'fas fa-user',
   HEO_INFO_CARD_URL2: 'https://github.com/MoChengqian',
   HEO_INFO_CARD_ICON2: 'fab fa-github',
-  HEO_INFO_CARD_URL3: 'https://notion-next-iota-amber-43.vercel.app/article/0',
+  HEO_INFO_CARD_URL3: '/interview-reading',
   //HEO_INFO_CARD_TEXT3: 'GitHub',
 
   // 用户技能图标
@@ -128,6 +136,9 @@ const CONFIG = {
   HEO_MENU_TAG: true, // 显示标签
   HEO_MENU_ARCHIVE: true, // 显示归档
   HEO_MENU_SEARCH: true, // 显示搜索
+  HEO_NAV_LINKS: EVIDENCE_CONFIG.navLinks,
+  HEO_PRIMARY_CATEGORIES: EVIDENCE_CONFIG.primaryCategories,
+  HEO_FOCUS_TAGS: EVIDENCE_CONFIG.focusTags,
 
   HEO_POST_LIST_COVER: true, // 列表显示文章封面
   HEO_POST_LIST_COVER_HOVER_ENLARGE: false, // 列表鼠标悬停放大

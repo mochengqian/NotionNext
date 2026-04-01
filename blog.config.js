@@ -6,7 +6,7 @@ const BLOG = {
   NOTION_PAGE_ID:
     process.env.NOTION_PAGE_ID ||
     '02ab3b8678004aa69e9e415905ef32a5,en:7c1d570661754c8fbc568e00a01fd70e',
-  THEME: process.env.NEXT_PUBLIC_THEME || 'simple', // 当前主题，在themes文件夹下可找到所有支持的主题；主题名称就是文件夹名，例如 example,fukasawa,gitbook,heo,hexo,landing,matery,medium,next,nobelium,plog,simple
+  THEME: process.env.NEXT_PUBLIC_THEME || 'heo', // 当前主题默认切到 heo；若 Notion 配置中心存在 THEME，将继续按原优先级覆盖这里的默认值
   LANG: process.env.NEXT_PUBLIC_LANG || 'zh-CN', // e.g 'zh-CN','en-US'  see /lib/lang.js for more.
   SINCE: process.env.NEXT_PUBLIC_SINCE || 2026, // e.g if leave this empty, current year will be used.
 
@@ -15,10 +15,14 @@ const BLOG = {
   APPEARANCE: process.env.NEXT_PUBLIC_APPEARANCE || 'light', // ['light', 'dark', 'auto'], // light 日间模式 ， dark夜间模式， auto根据时间和主题自动夜间模式
   APPEARANCE_DARK_TIME: process.env.NEXT_PUBLIC_APPEARANCE_DARK_TIME || [18, 6], // 夜间模式起至时间，false时关闭根据时间自动切换夜间模式
 
-  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || '你赢了兄弟!', // 您的昵称 例如 tangly1024
-  BIO: process.env.NEXT_PUBLIC_BIO || '记录学习、设计与生活', // 作者简介
+  AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || '莫承潜', // 您的昵称 例如 tangly1024
+  BIO:
+    process.env.NEXT_PUBLIC_BIO ||
+    '面向平台 / 基础设施后端方向成长，关注网关、服务治理、可观测性与稳定性。', // 作者简介
   LINK: process.env.NEXT_PUBLIC_LINK || 'https://notion-next-iota-amber-43.vercel.app', // 网站地址
-  KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || '博客, 学习, 设计, 生活', // 网站关键词 英文逗号隔开
+  KEYWORDS:
+    process.env.NEXT_PUBLIC_KEYWORD ||
+    'gateway, service-discovery, metadata, traffic-governance, observability, reliability, dubbo, opentelemetry', // 网站关键词 英文逗号隔开
   BLOG_FAVICON: process.env.NEXT_PUBLIC_FAVICON || '/favicon.ico', // blog favicon 配置, 默认使用 /public/favicon.ico，支持在线图片，如 https://img.imesong.com/favicon.png
   BEI_AN: process.env.NEXT_PUBLIC_BEI_AN || '', // 备案号 闽ICP备XXXXXX
   BEI_AN_LINK: process.env.NEXT_PUBLIC_BEI_AN_LINK || 'https://beian.miit.gov.cn/', // 备案查询链接，如果用了萌备等备案请在这里填写
@@ -65,7 +69,7 @@ const BLOG = {
   // 欢迎语打字效果,Hexo,Matery主题支持, 英文逗号隔开多个欢迎语。
   GREETING_WORDS:
     process.env.NEXT_PUBLIC_GREETING_WORDS ||
-    'Hi，欢迎来到我的博客,Hi，这里记录学习与生活,Hi，希望这里有你喜欢的内容',
+    'Hi，这里优先展示工程证据,Hi，主线围绕网关与服务治理,Hi，欢迎从面试阅读入口开始',
 
   // uuid重定向至 slug
   UUID_REDIRECT: process.env.UUID_REDIRECT || false
