@@ -8,7 +8,28 @@ import EVIDENCE_CONFIG from '../evidence.config'
  * Right sidebar for desktop
  */
 export default function SideRight(props) {
-  const { post, tagOptions, currentTag, rightAreaSlot } = props
+  const { post, tagOptions, currentTag, rightAreaSlot, mobile = false } = props
+
+  if (mobile) {
+    return (
+      <div className='space-y-4'>
+        <InfoCard {...props} />
+        <Card className='bg-white border-slate-200 shadow-sm'>
+          <div className='mb-3 text-xs uppercase tracking-[0.16em] text-slate-500'>
+            {EVIDENCE_CONFIG.sidebar.title}
+          </div>
+          <p className='mb-4 text-sm leading-6 text-slate-600'>
+            {EVIDENCE_CONFIG.sidebar.description}
+          </p>
+          <TagGroups
+            tags={tagOptions || []}
+            currentTag={currentTag}
+            names={EVIDENCE_CONFIG.sidebar.tags}
+          />
+        </Card>
+      </div>
+    )
+  }
 
   return (
     <div id='sideRight' className='hidden xl:block w-72 space-y-4 h-full'>

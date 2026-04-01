@@ -2,6 +2,7 @@ import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
 import { DynamicLayout } from '@/themes/theme'
+import { buildHomeFeedPosts } from '@/themes/heo/evidence.helpers'
 
 /**
  * 文章列表分页
@@ -15,9 +16,13 @@ const Page = props => {
 
 export async function getStaticPaths({ locale }) {
   const from = 'page-paths'
-  const { postCount, NOTION_CONFIG } = await fetchGlobalAllData({ from, locale })
+  const { allPages, NOTION_CONFIG } = await fetchGlobalAllData({ from, locale })
+  const allPosts = (allPages || []).filter(
+    page => page.type === 'Post' && page.status === 'Published'
+  )
+  const filteredPosts = buildHomeFeedPosts(allPosts)
   const totalPages = Math.ceil(
-    postCount / siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
+    filteredPosts.length / siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   )
   return {
     // remove first page, we 're not gonna handle that.
@@ -41,12 +46,14 @@ export async function getStaticProps({ params: { page }, locale }) {
   const allPosts = allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
+  const filteredPosts = buildHomeFeedPosts(allPosts)
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
   // 处理分页
-  props.posts = allPosts.slice(
+  props.posts = filteredPosts.slice(
     POSTS_PER_PAGE * (page - 1),
     POSTS_PER_PAGE * page
   )
+  props.postCount = filteredPosts.length
   props.page = page
 
   // 处理预览

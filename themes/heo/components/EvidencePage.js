@@ -2,6 +2,7 @@ import SmartLink from '@/components/SmartLink'
 import { siteConfig } from '@/lib/config'
 import { getStaticPageConfig } from '../evidence.helpers'
 import Card from './Card'
+import PageLead from './PageLead'
 
 const renderCardItem = item => {
   const body = (
@@ -109,40 +110,28 @@ export default function EvidencePage({ pageKey }) {
   return (
     <div className='px-5 md:px-0'>
       <div className='mx-auto max-w-5xl space-y-6'>
-        <Card className='border-slate-200 bg-white shadow-sm'>
-          <div className='flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between'>
-            <div className='max-w-3xl'>
-              <div className='text-xs uppercase tracking-[0.18em] text-slate-500'>
-                {page.eyebrow}
-              </div>
-              <h1 className='mt-2 text-3xl font-semibold text-slate-900 md:text-4xl'>
-                {page.title}
-              </h1>
-              <p className='mt-4 text-sm leading-7 text-slate-600 md:text-base'>
-                {page.description}
-              </p>
-            </div>
-
-            {page.actions?.length > 0 && (
-              <div className='flex flex-wrap gap-3 xl:justify-end'>
-                {page.actions.map(action => (
-                  <SmartLink
-                    key={`${pageKey}-${action.title}`}
-                    href={action.href}
-                    target={action.target}
-                    className='inline-flex w-full items-center justify-center rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-white sm:w-auto'>
-                    {action.title}
-                  </SmartLink>
-                ))}
-                <SmartLink
-                  href={link}
-                  className='inline-flex w-full items-center justify-center rounded-full border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 sm:w-auto'>
-                  博客首页
-                </SmartLink>
-              </div>
-            )}
-          </div>
-        </Card>
+        <PageLead
+          eyebrow={page.eyebrow}
+          title={page.title}
+          description={page.description}
+          actions={[
+            ...(page.actions?.map(action => (
+              <SmartLink
+                key={`${pageKey}-${action.title}`}
+                href={action.href}
+                target={action.target}
+                className='inline-flex items-center justify-center rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-white'>
+                {action.title}
+              </SmartLink>
+            )) || []),
+            <SmartLink
+              key={`${pageKey}-home`}
+              href={link}
+              className='inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50'>
+              首页
+            </SmartLink>
+          ]}
+        />
 
         {page.sections?.map(section => (
           <section

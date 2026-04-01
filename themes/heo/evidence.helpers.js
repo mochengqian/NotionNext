@@ -148,6 +148,14 @@ const calculateMatchScore = (post, matcher = {}) => {
   return score
 }
 
+const buildSyntheticTrackSource = ({ category, tag, pathname }) => ({
+  category,
+  tags: tag ? [tag] : [],
+  title: pathname || '',
+  summary: '',
+  slug: ''
+})
+
 export const resolveEvidenceType = post => {
   const matchedType = EVIDENCE_CONFIG.evidenceTypes
     .map(type => ({
@@ -169,6 +177,108 @@ export const buildHomeFeedPosts = posts => {
   return primaryPosts.length >= EVIDENCE_CONFIG.homepage.minimumPrimaryPosts
     ? primaryPosts
     : allPosts
+}
+
+export const resolveActiveContentTab = ({ pathname, category, tag }) => {
+  if (
+    pathname === '/' ||
+    pathname === '/archive' ||
+    pathname === '/page/[page]' ||
+    pathname === '/series'
+  ) {
+    return 'all'
+  }
+
+  if (category) {
+    const matchedTab = EVIDENCE_CONFIG.contentTabs.find(tab =>
+      tab.match?.categories?.some(
+        item => normalizeText(item) === normalizeText(category)
+      )
+    )
+    return matchedTab?.id || 'all'
+  }
+
+  if (tag) {
+    const source = buildSyntheticTrackSource({ pathname, tag })
+    const matchedTab = EVIDENCE_CONFIG.contentTabs
+      .filter(tab => tab.id !== 'all')
+      .map(tab => ({
+        id: tab.id,
+        score: calculateMatchScore(source, tab.match)
+      }))
+      .sort((left, right) => right.score - left.score)[0]
+
+    return matchedTab?.score > 0 ? matchedTab.id : 'all'
+  }
+
+  return 'all'
+}
+
+export const getPageLeadConfig = ({ pathname, category, tag }) => {
+  if (pathname === '/') {
+    return EVIDENCE_CONFIG.pageLeads.home
+  }
+
+  if (pathname === '/archive') {
+    return EVIDENCE_CONFIG.pageLeads.archive
+  }
+
+  if (pathname === '/category') {
+    return EVIDENCE_CONFIG.pageLeads.categoryIndex
+  }
+
+  if (pathname === '/tag') {
+    return EVIDENCE_CONFIG.pageLeads.tagIndex
+  }
+
+  if (pathname === '/series') {
+    return EVIDENCE_CONFIG.pageLeads.series
+  }
+
+  if (pathname === '/interview-reading') {
+    return EVIDENCE_CONFIG.pageLeads.interviewReading
+  }
+
+  if (pathname === '/open-source') {
+    return EVIDENCE_CONFIG.pageLeads.openSource
+  }
+
+  if (pathname === '/about') {
+    return EVIDENCE_CONFIG.pageLeads.about
+  }
+
+  if (category) {
+    const matchedTab = EVIDENCE_CONFIG.contentTabs.find(
+      tab => resolveActiveContentTab({ pathname, category, tag }) === tab.id
+    )
+    return {
+      eyebrow: 'Category',
+      title: category,
+      description:
+        matchedTab?.match?.keywords?.length > 0
+          ? `围绕 ${category} 相关主题持续归档，保持统一内容流和稳定阅读路径。`
+          : '围绕当前栏目持续归档，不再通过多入口模块分散注意力。'
+    }
+  }
+
+  if (tag) {
+    return {
+      eyebrow: 'Tag',
+      title: `主题词 · ${tag}`,
+      description:
+        '当前标签页继续使用统一主框架，主题词只作为问题域入口，不再派生出另一套信息架构。'
+    }
+  }
+
+  if (pathname === '/page/[page]') {
+    return {
+      eyebrow: 'Timeline',
+      title: '主线内容流',
+      description: '继续沿统一内容流查看更早的文章归档。'
+    }
+  }
+
+  return null
 }
 
 const buildPostHighlight = (post, role) => {

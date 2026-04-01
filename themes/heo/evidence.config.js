@@ -22,6 +22,107 @@ export const EVIDENCE_CONFIG = {
     '/category': '栏目索引 · 以主题而非泛推荐组织内容',
     '/tag': '主题词索引 · 收敛长期技术词表'
   },
+  contentTabs: [
+    {
+      id: 'all',
+      title: '全部',
+      href: '/',
+      match: {}
+    },
+    {
+      id: 'source-protocol',
+      title: '源码与协议',
+      href: '/category/源码与协议',
+      match: {
+        categories: ['源码与协议'],
+        tags: ['dubbo', 'metadata', 'service-discovery'],
+        keywords: ['dubbo', 'protocol', 'metadata', 'rpc', '源码']
+      }
+    },
+    {
+      id: 'traffic-governance',
+      title: '流量与服务治理',
+      href: '/category/流量与服务治理',
+      match: {
+        categories: ['流量与服务治理'],
+        tags: ['gateway', 'traffic-governance', 'rate-limit'],
+        keywords: ['gateway', 'traffic', 'rate limit', 'retry', 'timeout']
+      }
+    },
+    {
+      id: 'observability-reliability',
+      title: '可观测性与稳定性',
+      href: '/category/可观测性与稳定性',
+      match: {
+        categories: ['可观测性与稳定性'],
+        tags: ['observability', 'reliability', 'tracing', 'prometheus'],
+        keywords: ['observability', 'reliability', 'tracing', 'opentelemetry']
+      }
+    },
+    {
+      id: 'open-source',
+      title: '开源贡献',
+      href: '/category/开源贡献',
+      match: {
+        categories: ['开源贡献'],
+        tags: ['dubbo', 'open-source'],
+        keywords: ['pull request', 'merged', 'review', 'issue', '开源']
+      }
+    },
+    {
+      id: 'thinking-models',
+      title: '观点与模型',
+      href: '/category/观点与模型',
+      match: {
+        categories: ['观点与模型'],
+        tags: ['ai-gateway', 'llmops'],
+        keywords: ['ai gateway', 'llmops', 'model', 'policy', '观点']
+      }
+    }
+  ],
+  pageLeads: {
+    home: {
+      eyebrow: 'Default Stream',
+      title: '基础设施后端 / 网关治理 / 可观测性主线',
+      description:
+        '首页直接作为默认主题流页面，优先展示 Dubbo、Service Governance、Observability、Reliability 与 AI Gateway 相关内容。'
+    },
+    archive: {
+      eyebrow: 'Archive',
+      title: '时间归档',
+      description: '按时间回看主线积累与阶段性证据，保持同一套内容骨架。'
+    },
+    categoryIndex: {
+      eyebrow: 'Categories',
+      title: '栏目总览',
+      description: '栏目只保留主线结构，不再扩散为多套重复入口。'
+    },
+    tagIndex: {
+      eyebrow: 'Tags',
+      title: '主题词总览',
+      description: '主题词作为辅助导航使用，帮助沿问题域继续下钻。'
+    },
+    series: {
+      eyebrow: 'Series',
+      title: '主题系列',
+      description: '系列页继续沿统一骨架展开，负责索引长期主线，而不是再造一个入口页。'
+    },
+    interviewReading: {
+      eyebrow: 'Interview Reading',
+      title: '面试阅读',
+      description: '给招聘方一个稳定、克制、可验证的阅读起点。'
+    },
+    openSource: {
+      eyebrow: 'Open Source',
+      title: '开源贡献',
+      description: '集中展示 PR、Issue、Review 与复盘，作为技术档案的一部分。'
+    },
+    about: {
+      eyebrow: 'About',
+      title: '个人说明',
+      description: '围绕技术主线、边界与取舍展开，而不是泛化自我介绍。'
+    }
+  },
   hero: {
     eyebrow: 'Platform / Infrastructure Backend',
     title: '平台后端 / 基础设施后端 / 网关治理',

@@ -23,17 +23,15 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import BlogPostArchive from './components/BlogPostArchive'
-import EvidenceHome from './components/EvidenceHome'
 import EvidenceDigest from './components/EvidenceDigest'
 import BlogPostListPage from './components/BlogPostListPage'
 import BlogPostListScroll from './components/BlogPostListScroll'
-import CategoryBar from './components/CategoryBar'
+import ContentTabs from './components/ContentTabs'
 import FloatTocButton from './components/FloatTocButton'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import Hero from './components/Hero'
 import LatestPostsGroup from './components/LatestPostsGroup'
-import { NoticeBar } from './components/NoticeBar'
+import PageLead from './components/PageLead'
 import PostAdjacent from './components/PostAdjacent'
 import PostCopyright from './components/PostCopyright'
 import PostHeader from './components/PostHeader'
@@ -48,9 +46,9 @@ import ArticleExpirationNotice from '@/components/ArticleExpirationNotice'
 import {
   buildFocusTags,
   buildHomeFeedPosts,
-  buildPrimaryCategories
+  buildPrimaryCategories,
+  getPageLeadConfig
 } from './evidence.helpers'
-import EVIDENCE_CONFIG from './evidence.config'
 
 /**
  * 基础布局 采用上中下布局，移动端使用顶部侧边导航栏
@@ -70,19 +68,23 @@ const LayoutBase = props => {
     '/series',
     '/about'
   ])
+  const contentTabRoutes = new Set([
+    '/',
+    '/category',
+    '/category/[category]',
+    '/category/[category]/page/[page]',
+    '/tag',
+    '/tag/[tag]',
+    '/tag/[tag]/page/[page]',
+    '/archive',
+    '/page/[page]',
+    '/series'
+  ])
 
   const headerSlot = (
     <header>
-      {/* 顶部导航 */}
       <Header {...props} />
-
-      {/* 通知横幅 */}
-      {router.route === '/' ? (
-        <>
-          <NoticeBar />
-          <Hero {...props} />
-        </>
-      ) : null}
+      {contentTabRoutes.has(router.route) ? <ContentTabs {...props} /> : null}
       {fullWidth || hiddenPostHeaderRoutes.has(router.route) ? null : (
         <PostHeader {...props} isDarkMode={isDarkMode} />
       )}
@@ -124,9 +126,13 @@ const LayoutBase = props => {
           id='container-inner'
           className={`${HEO_HERO_BODY_REVERSE ? 'flex-row-reverse' : ''} w-full mx-auto lg:flex justify-center relative z-10`}>
           <div className={`w-full h-auto ${className || ''}`}>
-            {/* 主区上部嵌入 */}
             {slotTop}
             {children}
+            {slotRight ? (
+              <div className='mt-6 px-5 md:px-0 xl:hidden'>
+                <SideRight {...props} mobile />
+              </div>
+            ) : null}
           </div>
 
           <div className='lg:px-2'></div>
@@ -156,6 +162,7 @@ const LayoutIndex = props => {
   const allHomePosts = buildHomeFeedPosts(props.allNavPages || props.posts || [])
   const postsPerPage = siteConfig('POSTS_PER_PAGE', 12, props.NOTION_CONFIG)
   const listStyle = siteConfig('POST_LIST_STYLE')
+  const lead = getPageLeadConfig({ pathname: '/' })
   const homeFeedProps = {
     ...props,
     posts:
@@ -165,21 +172,7 @@ const LayoutIndex = props => {
 
   return (
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
-      <EvidenceHome {...props} />
-      <section className='space-y-4 pt-2'>
-        <div className='px-1'>
-          <div className='text-xs uppercase tracking-[0.16em] text-slate-500'>
-            首页结构
-          </div>
-          <h2 className='mt-1 text-2xl font-semibold text-slate-900'>
-            {EVIDENCE_CONFIG.homepage.feedTitle}
-          </h2>
-          <p className='mt-2 max-w-3xl text-sm leading-6 text-slate-600'>
-            {EVIDENCE_CONFIG.homepage.feedDescription}
-          </p>
-        </div>
-        <CategoryBar {...props} />
-      </section>
+      <PageLead {...lead} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...homeFeedProps} />
       ) : (
@@ -195,10 +188,16 @@ const LayoutIndex = props => {
  * @returns
  */
 const LayoutPostList = props => {
+  const router = useRouter()
+  const lead = getPageLeadConfig({
+    pathname: router.pathname,
+    category: props.category,
+    tag: props.tag
+  })
+
   return (
     <div id='post-outer-wrapper' className='px-5  md:px-0'>
-      {/* 文章分类条 */}
-      <CategoryBar {...props} />
+      <PageLead {...lead} />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
@@ -259,13 +258,14 @@ const LayoutSearch = props => {
  */
 const LayoutArchive = props => {
   const { archivePosts } = props
-
-  // 归档页顶部显示条，如果是默认归档则不显示。分类详情页显示分类列表，标签详情页显示当前标签
+  const lead = getPageLeadConfig({ pathname: '/archive' })
 
   return (
     <div className='p-5 rounded-xl border dark:border-gray-600 max-w-6xl w-full bg-white dark:bg-[#1e1e1e]'>
-      {/* 文章分类条 */}
-      <CategoryBar {...props} border={false} />
+      <PageLead
+        {...lead}
+        className='mb-5 border-none bg-slate-50 shadow-none dark:bg-[#202026]'
+      />
 
       <div className='px-3'>
         {Object.keys(archivePosts).map(archiveTitle => (
@@ -461,20 +461,15 @@ const Layout404 = props => {
  */
 const LayoutCategoryIndex = props => {
   const { categoryOptions } = props
-  const { locale } = useGlobal()
   const categories = buildPrimaryCategories(categoryOptions)
+  const lead = getPageLeadConfig({ pathname: '/category' })
 
   return (
-    <div id='category-outer-wrapper' className='mt-8 px-5 md:px-0'>
-      <div className='text-4xl font-extrabold dark:text-gray-200 mb-5'>
-        {locale.COMMON.CATEGORY}
-      </div>
-      <p className='mb-6 max-w-3xl text-sm leading-6 text-slate-600'>
-        一级栏目按证据型信息架构收敛。即使 Notion 端还没补齐，前端也先保留固定入口和稳定命名，后续补内容即可。
-      </p>
+    <div id='category-outer-wrapper' className='px-5 md:px-0'>
+      <PageLead {...lead} />
       <div
         id='category-list'
-        className='duration-200 flex flex-wrap m-10 justify-center'>
+        className='duration-200 flex flex-wrap gap-5 justify-start'>
         {categories?.map(category => {
           return (
             <SmartLink
@@ -484,11 +479,11 @@ const LayoutCategoryIndex = props => {
               legacyBehavior>
               <div
                 className={
-                  'group mr-5 mb-5 flex flex-nowrap items-center border bg-white text-2xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-indigo-600 transition-all hover:scale-110 duration-150'
+                  'group flex flex-nowrap items-center border bg-white text-xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-slate-900 transition-all duration-150'
                 }>
                 <HashTag className={'w-5 h-5 stroke-gray-500 stroke-2'} />
                 {category.name}
-                <div className='bg-[#f1f3f8] ml-1 px-2 rounded-lg group-hover:text-indigo-600 '>
+                <div className='bg-[#f1f3f8] ml-2 px-2 rounded-lg text-base group-hover:text-slate-900 '>
                   {category.count > 0 ? category.count : '未归档'}
                 </div>
               </div>
@@ -507,20 +502,15 @@ const LayoutCategoryIndex = props => {
  */
 const LayoutTagIndex = props => {
   const { tagOptions } = props
-  const { locale } = useGlobal()
   const tags = buildFocusTags(tagOptions)
+  const lead = getPageLeadConfig({ pathname: '/tag' })
 
   return (
-    <div id='tag-outer-wrapper' className='px-5 mt-8 md:px-0'>
-      <div className='text-4xl font-extrabold dark:text-gray-200 mb-5'>
-        {locale.COMMON.TAGS}
-      </div>
-      <p className='mb-6 max-w-3xl text-sm leading-6 text-slate-600'>
-        标签词表优先围绕长期主题积累收敛，减少泛化标签，方便按问题域继续补文和回看。
-      </p>
+    <div id='tag-outer-wrapper' className='px-5 md:px-0'>
+      <PageLead {...lead} />
       <div
         id='tag-list'
-        className='duration-200 flex flex-wrap space-x-5 space-y-5 m-10 justify-center'>
+        className='duration-200 flex flex-wrap gap-4 justify-start'>
         {tags.map(tag => {
           return (
             <SmartLink
@@ -530,11 +520,11 @@ const LayoutTagIndex = props => {
               legacyBehavior>
               <div
                 className={
-                  'group flex flex-nowrap items-center border bg-white text-2xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-indigo-600 transition-all hover:scale-110 duration-150'
+                  'group flex flex-nowrap items-center border bg-white text-xl rounded-xl dark:hover:text-white px-4 cursor-pointer py-3 hover:text-white hover:bg-slate-900 transition-all duration-150'
                 }>
                 <HashTag className={'w-5 h-5 stroke-gray-500 stroke-2'} />
                 {tag.name}
-                <div className='bg-[#f1f3f8] ml-1 px-2 rounded-lg group-hover:text-indigo-600 '>
+                <div className='bg-[#f1f3f8] ml-2 px-2 rounded-lg text-base group-hover:text-slate-900 '>
                   {tag.count}
                 </div>
               </div>
