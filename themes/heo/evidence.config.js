@@ -45,7 +45,7 @@ export const EVIDENCE_CONFIG = {
     },
     {
       id: 'llm-access-gateway',
-      title: '自研LLM—Access—Gateway项目',
+      title: '自研LLM Access Gateway项目',
       href: '/tag/gateway',
       match: {
         categories: ['流量与服务治理', '观点与模型'],
@@ -410,7 +410,7 @@ export const EVIDENCE_CONFIG = {
               title: '先看关于我'
             },
             {
-              title: '再看推荐阅读'
+              title: '再看推荐阅读和其他内容'
             },
             {
               title: '最后看一眼我的GitHub主页'

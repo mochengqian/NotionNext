@@ -65,11 +65,30 @@ const Style = () => {
         color: #1f2937;
       }
 
+      html.dark #theme-heo #article-wrapper .notion,
+      html.dark #theme-heo #article-wrapper .notion p,
+      html.dark #theme-heo #article-wrapper .notion li,
+      html.dark #theme-heo #article-wrapper .notion span,
+      html.dark #theme-heo #article-wrapper .notion strong,
+      html.dark #theme-heo #article-wrapper .notion div {
+        color: #e5e7eb;
+      }
+
       #theme-heo #article-wrapper .notion h1,
       #theme-heo #article-wrapper .notion h2,
       #theme-heo #article-wrapper .notion h3 {
         letter-spacing: -0.01em;
         color: #0f172a;
+      }
+
+      html.dark #theme-heo #article-wrapper .notion h1,
+      html.dark #theme-heo #article-wrapper .notion h2,
+      html.dark #theme-heo #article-wrapper .notion h3,
+      html.dark #theme-heo #article-wrapper .notion h4,
+      html.dark #theme-heo #article-wrapper .notion h5,
+      html.dark #theme-heo #article-wrapper .notion h6,
+      html.dark #theme-heo #article-wrapper .notion a {
+        color: #f8fafc;
       }
 
       #theme-heo #article-wrapper .notion h2 {
@@ -84,6 +103,11 @@ const Style = () => {
         background: rgba(248, 250, 252, 0.92);
         border-radius: 0 14px 14px 0;
         padding: 1rem 1.1rem;
+      }
+
+      html.dark #theme-heo #article-wrapper .notion blockquote {
+        background: rgba(37, 36, 43, 0.92);
+        border-left-color: rgba(148, 163, 184, 0.38);
       }
 
       #theme-heo #article-wrapper .notion pre {
@@ -101,6 +125,11 @@ const Style = () => {
         border-radius: 18px;
         border: 1px solid rgba(148, 163, 184, 0.18);
         background: #ffffff;
+      }
+
+      html.dark #theme-heo #article-wrapper .notion img,
+      html.dark #theme-heo #article-wrapper .notion .notion-asset-wrapper img {
+        background: #1e1e1e;
       }
 
       #theme-heo #article-wrapper .notion ul,
