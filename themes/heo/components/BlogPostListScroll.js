@@ -21,7 +21,7 @@ const BlogPostListScroll = ({
 }) => {
   const { locale, NOTION_CONFIG } = useGlobal()
   const [page, updatePage] = useState(1)
-  const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
+  const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, NOTION_CONFIG)
   const postsToShow = getListByPage(posts, page, POSTS_PER_PAGE)
 
   let hasMore = false
@@ -56,23 +56,21 @@ const BlogPostListScroll = ({
     return () => {
       window.removeEventListener('scroll', scrollTrigger)
     }
-  })
+  }, [page, posts.length])
 
   const targetRef = useRef(null)
-  const POST_TWO_COLS = siteConfig('HEO_HOME_POST_TWO_COLS', true, CONFIG)
   if (!postsToShow || postsToShow.length === 0) {
     return <BlogPostListEmpty currentSearch={currentSearch} />
   } else {
     return (
       <div id='container' ref={targetRef} className='w-full'>
         {/* 文章列表 */}
-        <div
-          className={`${POST_TWO_COLS && '2xl:grid 2xl:grid-cols-2'} grid-cols-1 gap-5`}>
-          {' '}
+        <div className='space-y-3'>
           {postsToShow.map(post => (
             <BlogPostCard
               key={post.id}
               post={post}
+              compact
               showSummary={showSummary}
               siteInfo={siteInfo}
             />
@@ -80,16 +78,15 @@ const BlogPostListScroll = ({
         </div>
 
         {/* 更多按钮 */}
-        <div>
+        {hasMore && (
           <div
             onClick={() => {
               handleGetMore()
             }}
-            className='w-full my-4 py-4 text-center cursor-pointer rounded-xl dark:text-gray-200'>
-            {' '}
-            {hasMore ? locale.COMMON.MORE : `${locale.COMMON.NO_MORE}`}{' '}
+            className='mt-4 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-center text-sm text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-gray-700 dark:bg-[#1e1e1e] dark:text-gray-300 dark:hover:text-white'>
+            {locale.COMMON.MORE}
           </div>
-        </div>
+        )}
       </div>
     )
   }

@@ -159,7 +159,16 @@ const LayoutBase = props => {
  * @returns
  */
 const LayoutIndex = props => {
-  const allHomePosts = buildHomeFeedPosts(props.allNavPages || props.posts || [])
+  const homeSource =
+    (Array.isArray(props.homePosts) && props.homePosts.length > 0
+      ? props.homePosts
+      : null) ||
+    (Array.isArray(props.allNavPages) && props.allNavPages.length > 0
+      ? props.allNavPages
+      : null) ||
+    props.posts ||
+    []
+  const allHomePosts = buildHomeFeedPosts(homeSource)
   const postsPerPage = siteConfig('POSTS_PER_PAGE', 12, props.NOTION_CONFIG)
   const listStyle = siteConfig('POST_LIST_STYLE')
   const lead = getPageLeadConfig({ pathname: '/' })

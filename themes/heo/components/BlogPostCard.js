@@ -1,124 +1,111 @@
-import LazyImage from '@/components/LazyImage'
-import NotionIcon from './NotionIcon'
 import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
+import NotionIcon from './NotionIcon'
 import TagItemMini from './TagItemMini'
 import { resolveEvidenceType } from '../evidence.helpers'
 
-const BlogPostCard = ({ index, post, showSummary, siteInfo }) => {
-  const showPreview =
-    siteConfig('HEO_POST_LIST_PREVIEW', null, CONFIG) && post.blockMap
-  if (
-    post &&
-    !post.pageCoverThumbnail &&
-    siteConfig('HEO_POST_LIST_COVER_DEFAULT', null, CONFIG)
-  ) {
-    post.pageCoverThumbnail = siteInfo?.pageCover
+const normalizeTagItems = post => {
+  if (Array.isArray(post?.tagItems) && post.tagItems.length > 0) {
+    return post.tagItems
   }
-  const showPageCover =
-    siteConfig('HEO_POST_LIST_COVER', null, CONFIG) &&
-    post?.pageCoverThumbnail &&
-    !showPreview
 
-  const POST_TWO_COLS = siteConfig('HEO_HOME_POST_TWO_COLS', true, CONFIG)
-  const COVER_HOVER_ENLARGE = siteConfig(
-    'HEO_POST_LIST_COVER_HOVER_ENLARGE',
-    true,
-    CONFIG
-  )
+  if (Array.isArray(post?.tags) && post.tags.length > 0) {
+    return post.tags.slice(0, 3).map(name => ({ name }))
+  }
+
+  return []
+}
+
+const resolveDateLabel = post => {
+  if (post?.publishDay) {
+    return post.publishDay
+  }
+
+  const rawDate =
+    post?.publishDate ||
+    post?.date?.start_date ||
+    post?.date?.startDate ||
+    post?.lastEditedDate
+
+  if (!rawDate) {
+    return ''
+  }
+
+  return String(rawDate).slice(0, 10)
+}
+
+const BlogPostCard = ({ post, compact = true }) => {
   const evidenceType = resolveEvidenceType(post)
-  const topTags = post.tagItems?.slice(0, 3) || []
-  const articleClassName = COVER_HOVER_ENLARGE
-    ? 'hover:transition-all duration-150'
-    : ''
+  const topTags = normalizeTagItems(post).slice(0, 2)
+  const dateLabel = resolveDateLabel(post)
+  const showSummary = compact
+    ? true
+    : siteConfig('HEO_POST_LIST_SUMMARY', null, CONFIG)
+
+  if (!post) {
+    return null
+  }
 
   return (
-    <article className={articleClassName}>
-      <div
-        data-wow-delay='.2s'
-        className={
-          (POST_TWO_COLS ? '2xl:h-96 2xl:flex-col' : '') +
-          ' wow fadeInUp border bg-white dark:bg-[#1e1e1e] flex mb-4 flex-col h-[23rem] md:h-52 md:flex-row  group w-full dark:border-gray-600 hover:border-indigo-600  dark:hover:border-yellow-600 duration-300 transition-colors justify-between overflow-hidden rounded-xl'
-        }>
-        {/* 图片封面 */}
-        {showPageCover && (
-          <SmartLink href={post?.href} passHref legacyBehavior>
-            <div
-              className={
-                (POST_TWO_COLS ? ' 2xl:w-full' : '') +
-                ' w-full md:w-5/12 overflow-hidden cursor-pointer select-none'
-              }>
-              <LazyImage
-                priority={index === 0}
-                src={post?.pageCoverThumbnail}
-                alt={post?.title}
-                className='h-full w-full object-cover group-hover:scale-105 group-hover:brightness-75 transition-all duration-500 ease-in-out' //宽高都调整为自适应,保证封面居中
-              />
-            </div>
-          </SmartLink>
-        )}
-
-        {/* 文字区块 */}
-        <div
-          className={
-            (POST_TWO_COLS ? '2xl:p-4 2xl:h-48 2xl:w-full' : '') +
-            ' flex p-5 md:p-6 flex-col justify-between h-48 md:h-full w-full md:w-7/12'
-          }>
-          <header>
-            <div className='mb-3 flex flex-wrap items-center gap-2 text-xs font-medium'>
-              {evidenceType && (
-                <span className='rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 uppercase tracking-[0.12em] text-slate-600'>
-                  {evidenceType}
-                </span>
-              )}
-              {post?.category && (
-                <SmartLink
-                  passHref
-                  href={`/category/${encodeURIComponent(post.category)}`}
-                  className='inline-flex items-center rounded-full border border-slate-200 px-2.5 py-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900'>
-                  {post.category}
-                </SmartLink>
-              )}
-              {post?.publishDay && (
-                <span className='text-slate-400'>{post.publishDay}</span>
-              )}
-            </div>
-
-            {/* 标题和图标 */}
-            <SmartLink
-              href={post?.href}
-              passHref
-              className={
-                'group-hover:text-slate-900 dark:hover:text-yellow-700 dark:group-hover:text-yellow-600 text-black dark:text-gray-100 line-clamp-2 replace cursor-pointer text-xl font-extrabold leading-tight'
-              }>
-              {siteConfig('POST_TITLE_ICON') && (
-                <NotionIcon
-                  icon={post.pageIcon}
-                  className='heo-icon w-6 h-6 mr-1 align-middle transform translate-y-[-8%]'
-                />
-              )}
-              <span className='menu-link '>{post.title}</span>
-            </SmartLink>
-
-            {post?.summary && (
-              <p className='mt-3 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-gray-300'>
-                {post.summary}
-              </p>
+    <article className='group'>
+      <div className='wow fadeInUp rounded-xl border border-slate-200 bg-white px-4 py-4 transition-colors duration-200 hover:border-slate-300 dark:border-gray-700 dark:bg-[#1e1e1e]'>
+        <header>
+          <div className='mb-2 flex flex-wrap items-center gap-2 text-[11px] font-medium'>
+            {evidenceType && (
+              <span className='inline-flex rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 uppercase tracking-[0.12em] text-slate-600 dark:border-gray-600 dark:bg-[#25242b] dark:text-gray-300'>
+                {evidenceType}
+              </span>
             )}
-          </header>
 
-          <div className='flex flex-wrap gap-2'>
+            {post?.category && (
+              <SmartLink
+                passHref
+                href={`/category/${encodeURIComponent(post.category)}`}
+                className='inline-flex items-center rounded-full border border-slate-200 px-2.5 py-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-gray-600 dark:text-gray-300 dark:hover:text-white'>
+                {post.category}
+              </SmartLink>
+            )}
+
+            {dateLabel && (
+              <span className='text-slate-400 dark:text-gray-500'>
+                {dateLabel}
+              </span>
+            )}
+          </div>
+
+          <SmartLink
+            href={post?.href}
+            passHref
+            className='replace cursor-pointer text-lg font-semibold leading-7 text-slate-900 transition-colors group-hover:text-slate-700 dark:text-gray-100 dark:group-hover:text-white md:text-[1.15rem]'>
+            {siteConfig('POST_TITLE_ICON') && post?.pageIcon && (
+              <NotionIcon
+                icon={post.pageIcon}
+                className='heo-icon mr-1 inline h-5 w-5 translate-y-[-6%] align-middle'
+              />
+            )}
+            <span className='menu-link line-clamp-2'>{post.title}</span>
+          </SmartLink>
+
+          {showSummary && post?.summary && (
+            <p className='mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-gray-300'>
+              {post.summary}
+            </p>
+          )}
+        </header>
+
+        {topTags.length > 0 && (
+          <div className='mt-3 flex flex-wrap gap-2'>
             {topTags.map(tag => (
               <TagItemMini key={tag.name} tag={tag} />
             ))}
-            {post.tagItems?.length > topTags.length && (
-              <span className='inline-flex items-center rounded-lg border border-dashed border-slate-200 px-2 py-1 text-xs text-slate-400'>
+            {Array.isArray(post?.tagItems) && post.tagItems.length > topTags.length && (
+              <span className='inline-flex items-center rounded-md border border-dashed border-slate-200 px-2 py-1 text-xs text-slate-400 dark:border-gray-600 dark:text-gray-500'>
                 +{post.tagItems.length - topTags.length}
               </span>
             )}
           </div>
-        </div>
+        )}
       </div>
     </article>
   )

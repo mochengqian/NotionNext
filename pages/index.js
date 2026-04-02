@@ -31,9 +31,11 @@ export async function getStaticProps(req) {
     12,
     props?.NOTION_CONFIG
   )
-  props.posts = props.allPages?.filter(
+  const publishedPosts = props.allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
+  props.homePosts = publishedPosts
+  props.posts = publishedPosts
 
   // 处理分页
   if (siteConfig('POST_LIST_STYLE') === 'scroll') {
