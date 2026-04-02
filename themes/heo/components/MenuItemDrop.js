@@ -30,7 +30,7 @@ export const MenuItemDrop = ({ link }) => {
           href={link?.href}
           className={`rounded-full flex justify-center items-center px-3 py-2 no-underline text-sm font-medium transition-colors ${
             selected
-              ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+              ? 'border border-slate-200 bg-slate-100 text-slate-900 dark:border-gray-700 dark:bg-[#25242b] dark:text-white'
               : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-gray-300 dark:hover:bg-[#25242b] dark:hover:text-white'
           }`}>
           {link?.icon && <i className={link?.icon} />} {link?.name}
@@ -42,7 +42,7 @@ export const MenuItemDrop = ({ link }) => {
           <div
             className={`cursor-pointer rounded-full flex justify-center items-center px-3 py-2 no-underline text-sm font-medium relative transition-colors ${
               selected
-                ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                ? 'border border-slate-200 bg-slate-100 text-slate-900 dark:border-gray-700 dark:bg-[#25242b] dark:text-white'
                 : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-gray-300 dark:hover:bg-[#25242b] dark:hover:text-white'
             }`}>
             {link?.icon && <i className={link?.icon} />} {link?.name}

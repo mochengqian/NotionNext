@@ -197,7 +197,7 @@ export default function CustomContextMenu(props) {
               onClick={handleJumpToRandomPost}
               title={locale.MENU.WALK_AROUND}
               className='w-full px-2 h-10 flex justify-start items-center flex-nowrap cursor-pointer hover:bg-blue-600 hover:text-white rounded-lg duration-200 transition-all'>
-              <i className='fa-solid fa-podcast mr-2' />
+              <i className='fas fa-dice mr-2' />
               <div className='whitespace-nowrap'>{locale.MENU.WALK_AROUND}</div>
             </div>
           )}
