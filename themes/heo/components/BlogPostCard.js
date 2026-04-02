@@ -37,7 +37,7 @@ const resolveDateLabel = post => {
 
 const BlogPostCard = ({ post, compact = true }) => {
   const evidenceType = resolveEvidenceType(post)
-  const topTags = normalizeTagItems(post).slice(0, 2)
+  const topTags = normalizeTagItems(post).slice(0, 1)
   const dateLabel = resolveDateLabel(post)
   const showSummary = compact
     ? true
@@ -49,11 +49,11 @@ const BlogPostCard = ({ post, compact = true }) => {
 
   return (
     <article className='group'>
-      <div className='wow fadeInUp rounded-xl border border-slate-200 bg-white px-4 py-4 transition-colors duration-200 hover:border-slate-300 dark:border-gray-700 dark:bg-[#1e1e1e]'>
+      <div className='wow fadeInUp rounded-lg border border-slate-200 bg-white px-3 py-2.5 transition-colors duration-200 hover:border-slate-300 dark:border-gray-700 dark:bg-[#1e1e1e]'>
         <header>
-          <div className='mb-2 flex flex-wrap items-center gap-2 text-[11px] font-medium'>
+          <div className='mb-1.5 flex flex-wrap items-center gap-1.5 text-[10px] font-medium md:text-[11px]'>
             {evidenceType && (
-              <span className='inline-flex rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 uppercase tracking-[0.12em] text-slate-600 dark:border-gray-600 dark:bg-[#25242b] dark:text-gray-300'>
+              <span className='inline-flex rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 uppercase tracking-[0.1em] text-slate-600 dark:border-gray-600 dark:bg-[#25242b] dark:text-gray-300'>
                 {evidenceType}
               </span>
             )}
@@ -62,7 +62,7 @@ const BlogPostCard = ({ post, compact = true }) => {
               <SmartLink
                 passHref
                 href={`/category/${encodeURIComponent(post.category)}`}
-                className='inline-flex items-center rounded-full border border-slate-200 px-2.5 py-1 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-gray-600 dark:text-gray-300 dark:hover:text-white'>
+                className='inline-flex items-center rounded-full border border-slate-200 px-2 py-0.5 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-gray-600 dark:text-gray-300 dark:hover:text-white'>
                 {post.category}
               </SmartLink>
             )}
@@ -77,30 +77,30 @@ const BlogPostCard = ({ post, compact = true }) => {
           <SmartLink
             href={post?.href}
             passHref
-            className='replace cursor-pointer text-lg font-semibold leading-7 text-slate-900 transition-colors group-hover:text-slate-700 dark:text-gray-100 dark:group-hover:text-white md:text-[1.15rem]'>
+            className='replace cursor-pointer text-[15px] font-semibold leading-6 text-slate-900 transition-colors group-hover:text-slate-700 dark:text-gray-100 dark:group-hover:text-white md:text-base'>
             {siteConfig('POST_TITLE_ICON') && post?.pageIcon && (
               <NotionIcon
                 icon={post.pageIcon}
-                className='heo-icon mr-1 inline h-5 w-5 translate-y-[-6%] align-middle'
+                className='heo-icon mr-1 inline h-4 w-4 translate-y-[-4%] align-middle'
               />
             )}
-            <span className='menu-link line-clamp-2'>{post.title}</span>
+            <span className='menu-link line-clamp-1'>{post.title}</span>
           </SmartLink>
 
           {showSummary && post?.summary && (
-            <p className='mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-gray-300'>
+            <p className='mt-1 line-clamp-1 text-[13px] leading-5 text-slate-600 dark:text-gray-300'>
               {post.summary}
             </p>
           )}
         </header>
 
         {topTags.length > 0 && (
-          <div className='mt-3 flex flex-wrap gap-2'>
+          <div className='mt-2 flex flex-wrap gap-1.5'>
             {topTags.map(tag => (
               <TagItemMini key={tag.name} tag={tag} />
             ))}
             {Array.isArray(post?.tagItems) && post.tagItems.length > topTags.length && (
-              <span className='inline-flex items-center rounded-md border border-dashed border-slate-200 px-2 py-1 text-xs text-slate-400 dark:border-gray-600 dark:text-gray-500'>
+              <span className='inline-flex items-center rounded-md border border-dashed border-slate-200 px-2 py-0.5 text-[11px] text-slate-400 dark:border-gray-600 dark:text-gray-500'>
                 +{post.tagItems.length - topTags.length}
               </span>
             )}
