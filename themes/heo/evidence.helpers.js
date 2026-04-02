@@ -292,11 +292,12 @@ export const buildHomeFeedPosts = posts => {
 export const resolveActiveContentTab = ({ pathname, category, tag }) => {
   if (
     pathname === '/' ||
+    pathname === '/recommended-reading' ||
     pathname === '/archive' ||
     pathname === '/page/[page]' ||
     pathname === '/series'
   ) {
-    return 'all'
+    return pathname === '/recommended-reading' ? 'recommended-reading' : 'all'
   }
 
   if (category) {
@@ -331,6 +332,10 @@ export const getPageLeadConfig = ({ pathname, category, tag }) => {
 
   if (pathname === '/archive') {
     return EVIDENCE_CONFIG.pageLeads.archive
+  }
+
+  if (pathname === '/recommended-reading') {
+    return EVIDENCE_CONFIG.pageLeads.recommendedReading
   }
 
   if (pathname === '/series') {

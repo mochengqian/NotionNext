@@ -12,6 +12,7 @@ export const EVIDENCE_CONFIG = {
   ],
   routeDescriptions: {
     '/': '默认内容流 · 全部文章 / 主线主题 / 工程证据',
+    '/recommended-reading': '推荐阅读 · 只看带推荐标签的文章',
     '/interview-reading': '推荐顺序 · 一页看完当前阅读路径',
     '/series': '系列索引 · 源码 / 治理 / 可观测 / 观点',
     '/archive': '时间线归档 · 按时间回看持续积累'
@@ -22,6 +23,15 @@ export const EVIDENCE_CONFIG = {
       title: '全部',
       href: '/',
       match: {}
+    },
+    {
+      id: 'recommended-reading',
+      title: '推荐阅读',
+      href: '/recommended-reading',
+      match: {
+        tags: ['推荐'],
+        keywords: ['推荐']
+      }
     },
     {
       id: 'open-source',
@@ -63,6 +73,11 @@ export const EVIDENCE_CONFIG = {
       eyebrow: 'Archive',
       title: '更早文章',
       description: '按时间继续查看更早内容，维持同一套主题流骨架。'
+    },
+    recommendedReading: {
+      eyebrow: 'Recommended Posts',
+      title: '推荐阅读',
+      description: '只保留带推荐标签的文章，作为一条更短、更直接的内容入口。'
     },
     series: {
       eyebrow: 'Series',
@@ -116,7 +131,7 @@ export const EVIDENCE_CONFIG = {
     intro:
       '聚焦网关、服务治理、可观测性、稳定性与 AI Gateway，把过程沉淀成可复现、可评审的工程证据。',
     actions: [
-      { title: '推荐阅读', href: '/interview-reading' },
+      { title: '推荐阅读', href: '/recommended-reading' },
       {
         title: 'GitHub',
         href: 'https://github.com/MoChengqian',
@@ -391,21 +406,16 @@ export const EVIDENCE_CONFIG = {
           title: '推荐阅读顺序',
           items: [
             {
-              title: '先看这一页',
-              summary: '先确认当前的推荐阅读顺序，知道从哪里开始读。'
+              title: '先看关于我'
             },
             {
-              title: '再看关于我',
-              summary:
-                '进入 https://notion-next-iota-amber-43.vercel.app/article/0，集中看方向、技术主线和联系方式。'
+              title: '再看推荐文章'
             },
             {
-              title: '然后看 Dubbo / 网关 / 可观测系列',
-              summary: '按主题树继续下钻到具体文章。'
+              title: '最后看一眼我的GitHub主页'
             },
             {
-              title: '最后回到归档或最新文章',
-              summary: '按时间线观察持续积累，而不是只看一次性展示。'
+              title: '亲爱的读者朋友,祝您生活愉快,再见!'
             }
           ]
         }
