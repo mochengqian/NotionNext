@@ -26,7 +26,7 @@ export function InfoCard(props) {
   const moreUrl = siteConfig('HEO_INFO_CARD_URL3', null, CONFIG)
 
   return (
-    <Card className='wow fadeInUp w-72 border-slate-200 bg-white shadow-sm'>
+    <Card className='wow fadeInUp w-full border-slate-200 bg-white shadow-sm'>
       <div className='flex items-center gap-4'>
         <LazyImage
           src={siteInfo?.icon}

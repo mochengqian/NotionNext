@@ -32,7 +32,7 @@ export default function SideRight(props) {
   }
 
   return (
-    <div id='sideRight' className='hidden xl:block w-72 space-y-4 h-full'>
+    <div id='sideRight' className='hidden xl:block w-64 space-y-4 h-full'>
       <InfoCard {...props} />
 
       <div className='sticky top-20 space-y-4'>

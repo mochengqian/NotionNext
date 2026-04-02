@@ -5,7 +5,6 @@ export const EVIDENCE_CONFIG = {
     { name: '首页', href: '/', show: true },
     { name: '面试阅读', href: '/interview-reading', show: true },
     { name: '开源贡献', href: '/open-source', show: true },
-    { name: '系列', href: '/series', show: true },
     { name: '分类', href: '/category', show: true },
     { name: '标签', href: '/tag', show: true },
     { name: '归档', href: '/archive', show: true },
@@ -13,7 +12,7 @@ export const EVIDENCE_CONFIG = {
     { name: '搜索', href: '/search', show: true }
   ],
   routeDescriptions: {
-    '/': '证据系统入口 · 面试阅读 / 开源贡献 / 系列文章',
+    '/': '默认内容流 · 全部文章 / 主线主题 / 工程证据',
     '/interview-reading': '面试导读 · 路线、代表作与推荐阅读顺序',
     '/open-source': '开源贡献 · PR / Issue / Review / 复盘入口',
     '/series': '系列索引 · 源码 / 治理 / 可观测 / 观点',
@@ -82,15 +81,15 @@ export const EVIDENCE_CONFIG = {
   ],
   pageLeads: {
     home: {
-      eyebrow: 'Default Stream',
-      title: '基础设施后端 / 网关治理 / 可观测性主线',
+      eyebrow: 'All Posts',
+      title: '全部文章',
       description:
-        '首页直接作为默认主题流页面，优先展示 Dubbo、Service Governance、Observability、Reliability 与 AI Gateway 相关内容。'
+        '默认按主线优先排序，同时保留完整文章流，进入首页就能直接开始阅读。'
     },
     archive: {
       eyebrow: 'Archive',
-      title: '时间归档',
-      description: '按时间回看主线积累与阶段性证据，保持同一套内容骨架。'
+      title: '更早文章',
+      description: '按时间继续查看更早内容，维持同一套主题流骨架。'
     },
     categoryIndex: {
       eyebrow: 'Categories',
@@ -145,11 +144,6 @@ export const EVIDENCE_CONFIG = {
       {
         title: '开源贡献',
         href: '/open-source',
-        variant: 'secondary'
-      },
-      {
-        title: '系列文章',
-        href: '/series',
         variant: 'secondary'
       }
     ],
@@ -299,7 +293,7 @@ export const EVIDENCE_CONFIG = {
       keywords: ['observability', 'reliability', 'tracing', 'prometheus', 'otel']
     },
     {
-      label: 'AI Gateway',
+      label: 'Thinking',
       categories: ['观点与模型'],
       keywords: ['ai gateway', 'llmops', 'model', 'policy', 'token', 'cost']
     }

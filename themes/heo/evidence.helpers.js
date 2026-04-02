@@ -90,6 +90,99 @@ const normalizeLinks = rawLinks => {
   return []
 }
 
+const isRenderablePost = post =>
+  post &&
+  String(post?.type || '').includes('Post') &&
+  (!post?.status || post.status === 'Published')
+
+const isTruthyFlag = value => {
+  if (typeof value === 'boolean') {
+    return value
+  }
+
+  if (typeof value === 'number') {
+    return value > 0
+  }
+
+  const normalized = normalizeText(value)
+  return ['true', '1', 'yes', 'on', 'pinned', 'featured', 'sticky'].includes(
+    normalized
+  )
+}
+
+const toNumber = value => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value
+  }
+
+  if (typeof value === 'string') {
+    const parsed = Number(value)
+    return Number.isFinite(parsed) ? parsed : null
+  }
+
+  return null
+}
+
+const resolvePinnedWeight = post => {
+  const ext = post?.ext || {}
+  const orderedFlags = [
+    ext.pinOrder,
+    ext.pinnedOrder,
+    ext.featuredOrder,
+    ext.topOrder,
+    ext.stickyOrder
+  ]
+    .map(toNumber)
+    .filter(value => value !== null)
+
+  if (orderedFlags.length > 0) {
+    return Math.max(0, 100 - orderedFlags[0])
+  }
+
+  const booleanFlags = [
+    post?.pinned,
+    post?.featured,
+    post?.top,
+    post?.sticky,
+    post?.recommend,
+    ext.pinned,
+    ext.featured,
+    ext.top,
+    ext.sticky,
+    ext.recommend,
+    ext.homepage,
+    ext.representative
+  ]
+
+  return booleanFlags.some(isTruthyFlag) ? 100 : 0
+}
+
+const resolvePostTimestamp = post => {
+  const candidates = [
+    post?.publishDate,
+    post?.publishDay,
+    post?.date?.start_date,
+    post?.date?.startDate,
+    post?.lastEditedDate,
+    post?.lastEditedDay,
+    post?.createdTime,
+    post?.createdDate
+  ]
+
+  for (const candidate of candidates) {
+    if (!candidate) {
+      continue
+    }
+
+    const timestamp = new Date(candidate).getTime()
+    if (!Number.isNaN(timestamp)) {
+      return timestamp
+    }
+  }
+
+  return 0
+}
+
 export const buildPrimaryCategories = (categoryOptions = []) => {
   const categoryMap = new Map(
     categoryOptions.map(category => [category.name, category])
@@ -171,12 +264,29 @@ export const isPrimaryTrackPost = post =>
   calculateMatchScore(post, EVIDENCE_CONFIG.primaryTrack) > 0
 
 export const buildHomeFeedPosts = posts => {
-  const allPosts = Array.isArray(posts) ? posts.filter(Boolean) : []
-  const primaryPosts = allPosts.filter(isPrimaryTrackPost)
+  const allPosts = Array.isArray(posts) ? posts.filter(isRenderablePost) : []
 
-  return primaryPosts.length >= EVIDENCE_CONFIG.homepage.minimumPrimaryPosts
-    ? primaryPosts
-    : allPosts
+  return [...allPosts].sort((left, right) => {
+    const leftPinnedWeight = resolvePinnedWeight(left)
+    const rightPinnedWeight = resolvePinnedWeight(right)
+    if (leftPinnedWeight !== rightPinnedWeight) {
+      return rightPinnedWeight - leftPinnedWeight
+    }
+
+    const leftPrimaryWeight = isPrimaryTrackPost(left) ? 1 : 0
+    const rightPrimaryWeight = isPrimaryTrackPost(right) ? 1 : 0
+    if (leftPrimaryWeight !== rightPrimaryWeight) {
+      return rightPrimaryWeight - leftPrimaryWeight
+    }
+
+    const leftEvidenceWeight = resolveEvidenceType(left) ? 1 : 0
+    const rightEvidenceWeight = resolveEvidenceType(right) ? 1 : 0
+    if (leftEvidenceWeight !== rightEvidenceWeight) {
+      return rightEvidenceWeight - leftEvidenceWeight
+    }
+
+    return resolvePostTimestamp(right) - resolvePostTimestamp(left)
+  })
 }
 
 export const resolveActiveContentTab = ({ pathname, category, tag }) => {
@@ -272,9 +382,9 @@ export const getPageLeadConfig = ({ pathname, category, tag }) => {
 
   if (pathname === '/page/[page]') {
     return {
-      eyebrow: 'Timeline',
-      title: '主线内容流',
-      description: '继续沿统一内容流查看更早的文章归档。'
+      eyebrow: 'All Posts',
+      title: '全部文章',
+      description: '继续浏览更早文章，保持主线优先、完整可读的默认内容流。'
     }
   }
 

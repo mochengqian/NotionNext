@@ -172,7 +172,7 @@ const LayoutIndex = props => {
 
   return (
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
-      <PageLead {...lead} />
+      <PageLead {...lead} compact />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...homeFeedProps} />
       ) : (
@@ -197,7 +197,7 @@ const LayoutPostList = props => {
 
   return (
     <div id='post-outer-wrapper' className='px-5  md:px-0'>
-      <PageLead {...lead} />
+      <PageLead {...lead} compact />
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
@@ -264,6 +264,7 @@ const LayoutArchive = props => {
     <div className='p-5 rounded-xl border dark:border-gray-600 max-w-6xl w-full bg-white dark:bg-[#1e1e1e]'>
       <PageLead
         {...lead}
+        compact
         className='mb-5 border-none bg-slate-50 shadow-none dark:bg-[#202026]'
       />
 
@@ -466,7 +467,7 @@ const LayoutCategoryIndex = props => {
 
   return (
     <div id='category-outer-wrapper' className='px-5 md:px-0'>
-      <PageLead {...lead} />
+      <PageLead {...lead} compact />
       <div
         id='category-list'
         className='duration-200 flex flex-wrap gap-5 justify-start'>
@@ -507,7 +508,7 @@ const LayoutTagIndex = props => {
 
   return (
     <div id='tag-outer-wrapper' className='px-5 md:px-0'>
-      <PageLead {...lead} />
+      <PageLead {...lead} compact />
       <div
         id='tag-list'
         className='duration-200 flex flex-wrap gap-4 justify-start'>
