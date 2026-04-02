@@ -104,11 +104,18 @@ export function getTechCoverBySeed(seed = 'notionnext', options = {}) {
 }
 
 export function getUnifiedPostCover(post = {}, fallbackSeed = 'notionnext') {
+  if (post?.pageCoverThumbnail) {
+    return post.pageCoverThumbnail
+  }
+
+  if (post?.pageCover) {
+    return post.pageCover
+  }
+
   const seed =
     post?.id ||
     post?.slug ||
     post?.title ||
-    post?.pageCoverThumbnail ||
     fallbackSeed
 
   const category = post?.category || ''
