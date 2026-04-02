@@ -3,12 +3,17 @@ export const EVIDENCE_CONFIG = {
   noticeBar: [],
   navLinks: [
     { name: '首页', href: '/', show: true },
-    { name: '推荐阅读', href: '/interview-reading', show: true },
+    {
+      name: '关于我',
+      href: 'https://notion-next-iota-amber-43.vercel.app/article/0',
+      show: true
+    },
     { name: '归档', href: '/archive', show: true }
   ],
   routeDescriptions: {
     '/': '默认内容流 · 全部文章 / 主线主题 / 工程证据',
-    '/interview-reading': '推荐导读 · 路线、代表作与推荐阅读顺序',
+    '/article/0': '关于我 · 方向、路线与联系方式',
+    '/interview-reading': '推荐顺序 · 一页看完当前阅读路径',
     '/series': '系列索引 · 源码 / 治理 / 可观测 / 观点',
     '/archive': '时间线归档 · 按时间回看持续积累'
   },
@@ -365,14 +370,14 @@ export const EVIDENCE_CONFIG = {
     }
   ],
   pages: {
-    interviewReading: {
-      slug: 'interview-reading',
-      eyebrow: '推荐导读',
-      title: '推荐阅读',
+    aboutMe: {
+      slug: 'article/0',
+      eyebrow: '个人说明',
+      title: '关于我',
       description:
-        '给读者的一页导读，先看定位、技术主线，再按顺序继续阅读具体文章。',
+        '一页集中说明当前方向、技术主线与联系方式，作为更稳定的个人说明入口。',
       actions: [
-        { title: '系列索引', href: '/series' },
+        { title: '推荐顺序', href: '/interview-reading' },
         { title: '归档', href: '/archive' },
         {
           title: 'GitHub',
@@ -400,29 +405,6 @@ export const EVIDENCE_CONFIG = {
           ]
         },
         {
-          type: 'steps',
-          id: 'reading-order',
-          title: '推荐阅读顺序',
-          items: [
-            {
-              title: '先看这一页',
-              summary: '确认方向、技术主线、代表作品和推荐顺序。'
-            },
-            {
-              title: '再看开源贡献',
-              summary: '当前这条入口已下线，直接继续浏览主题文章与归档。'
-            },
-            {
-              title: '然后看 Dubbo / 网关 / 可观测系列',
-              summary: '按主题树继续下钻到具体文章。'
-            },
-            {
-              title: '最后回到归档或最新文章',
-              summary: '按时间线观察持续积累，而不是只看一次性展示。'
-            }
-          ]
-        },
-        {
           type: 'cards',
           id: 'links',
           title: 'GitHub / 博客 / 联系方式入口',
@@ -444,6 +426,47 @@ export const EVIDENCE_CONFIG = {
               title: '联系方式（待补充）',
               summary: '建议后续补充邮箱或 LinkedIn，便于招聘场景直接联系。',
               meta: '联系入口'
+            }
+          ]
+        }
+      ]
+    },
+    interviewReading: {
+      slug: 'interview-reading',
+      eyebrow: '推荐顺序',
+      title: '推荐阅读顺序',
+      description:
+        '当前只保留一条稳定的阅读顺序，帮助快速了解先看什么、再看什么。',
+      actions: [
+        { title: '关于我', href: '/article/0' },
+        { title: '归档', href: '/archive' },
+        {
+          title: 'GitHub',
+          href: 'https://github.com/MoChengqian',
+          target: '_blank'
+        }
+      ],
+      sections: [
+        {
+          type: 'steps',
+          id: 'reading-order',
+          title: '推荐阅读顺序',
+          items: [
+            {
+              title: '先看这一页',
+              summary: '先确认当前的推荐阅读顺序，知道从哪里开始读。'
+            },
+            {
+              title: '再看关于我',
+              summary: '进入 /article/0，集中看方向、技术主线和联系方式。'
+            },
+            {
+              title: '然后看 Dubbo / 网关 / 可观测系列',
+              summary: '按主题树继续下钻到具体文章。'
+            },
+            {
+              title: '最后回到归档或最新文章',
+              summary: '按时间线观察持续积累，而不是只看一次性展示。'
             }
           ]
         }

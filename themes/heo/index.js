@@ -47,8 +47,10 @@ import {
   buildFocusTags,
   buildHomeFeedPosts,
   buildPrimaryCategories,
-  getPageLeadConfig
+  getPageLeadConfig,
+  getStaticPageConfig
 } from './evidence.helpers'
+import Card from './components/Card'
 
 /**
  * 基础布局 采用上中下布局，移动端使用顶部侧边导航栏
@@ -171,7 +173,9 @@ const LayoutIndex = props => {
   const allHomePosts = buildHomeFeedPosts(homeSource)
   const postsPerPage = siteConfig('POSTS_PER_PAGE', 12, props.NOTION_CONFIG)
   const listStyle = siteConfig('POST_LIST_STYLE')
-  const lead = getPageLeadConfig({ pathname: '/' })
+  const readingOrderSection = getStaticPageConfig('interviewReading')?.sections?.find(
+    section => section.id === 'reading-order'
+  )
   const homeFeedProps = {
     ...props,
     posts:
@@ -181,7 +185,43 @@ const LayoutIndex = props => {
 
   return (
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
-      <PageLead {...lead} compact />
+      {readingOrderSection ? (
+        <section className='mb-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-none dark:border-gray-700 dark:bg-[#202026] md:px-5'>
+          <div className='px-1'>
+            <div className='text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-gray-400'>
+              页面区块
+            </div>
+            <h2 className='mt-1 text-lg font-semibold text-slate-900 dark:text-white md:text-xl'>
+              {readingOrderSection.title}
+            </h2>
+          </div>
+          <Card className='mt-3 border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#1e1e1e]'>
+            <ol className='space-y-3'>
+              {readingOrderSection.items?.map((item, index) => (
+                <li
+                  key={`home-reading-order-${index}`}
+                  className='flex gap-3'>
+                  <div className='mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700 dark:bg-[#25242b] dark:text-gray-200'>
+                    {index + 1}
+                  </div>
+                  <div>
+                    <div className='text-sm font-semibold text-slate-900 dark:text-white'>
+                      {item.title || item}
+                    </div>
+                    {item.summary && (
+                      <p className='mt-1 text-sm leading-6 text-slate-600 dark:text-gray-300'>
+                        {item.summary}
+                      </p>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Card>
+        </section>
+      ) : (
+        <PageLead {...getPageLeadConfig({ pathname: '/' })} compact />
+      )}
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...homeFeedProps} />
       ) : (
