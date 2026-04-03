@@ -23,7 +23,6 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import BlogPostArchive from './components/BlogPostArchive'
-import EvidenceDigest from './components/EvidenceDigest'
 import BlogPostListPage from './components/BlogPostListPage'
 import BlogPostListScroll from './components/BlogPostListScroll'
 import ContentTabs from './components/ContentTabs'
@@ -403,7 +402,6 @@ const LayoutSlug = props => {
                 data-wow-delay='.2s'>
                 <ArticleExpirationNotice post={post} />
                 <AISummary aiSummary={post.aiSummary} />
-                <EvidenceDigest post={post} />
                 {post && <NotionPage post={post} />}
               </section>
 
