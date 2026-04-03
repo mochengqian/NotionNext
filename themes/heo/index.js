@@ -48,7 +48,8 @@ import {
   buildHomeFeedPosts,
   buildPrimaryCategories,
   getPageLeadConfig,
-  getStaticPageConfig
+  getStaticPageConfig,
+  resolveActiveContentTab
 } from './evidence.helpers'
 import Card from './components/Card'
 
@@ -237,6 +238,11 @@ const LayoutIndex = props => {
  */
 const LayoutPostList = props => {
   const router = useRouter()
+  const activeTab = resolveActiveContentTab({
+    pathname: router.pathname,
+    category: props.category,
+    tag: props.tag || router.query?.tag
+  })
   const lead = getPageLeadConfig({
     pathname: router.pathname,
     category: props.category,
@@ -245,7 +251,7 @@ const LayoutPostList = props => {
 
   return (
     <div id='post-outer-wrapper' className='px-5  md:px-0'>
-      <PageLead {...lead} compact />
+      {activeTab === 'all' && lead ? <PageLead {...lead} compact /> : null}
       {siteConfig('POST_LIST_STYLE') === 'page' ? (
         <BlogPostListPage {...props} />
       ) : (
