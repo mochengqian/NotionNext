@@ -293,11 +293,18 @@ export const resolveActiveContentTab = ({ pathname, category, tag }) => {
   if (
     pathname === '/' ||
     pathname === '/recommended-reading' ||
+    pathname === '/growth-notes' ||
     pathname === '/archive' ||
     pathname === '/page/[page]' ||
     pathname === '/series'
   ) {
-    return pathname === '/recommended-reading' ? 'recommended-reading' : 'all'
+    if (pathname === '/recommended-reading') {
+      return 'recommended-reading'
+    }
+    if (pathname === '/growth-notes') {
+      return 'growth-notes'
+    }
+    return 'all'
   }
 
   if (category) {
@@ -336,6 +343,10 @@ export const getPageLeadConfig = ({ pathname, category, tag }) => {
 
   if (pathname === '/recommended-reading') {
     return EVIDENCE_CONFIG.pageLeads.recommendedReading
+  }
+
+  if (pathname === '/growth-notes') {
+    return EVIDENCE_CONFIG.pageLeads.growthNotes
   }
 
   if (pathname === '/series') {

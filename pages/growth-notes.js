@@ -4,15 +4,15 @@ import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
 import { DynamicLayout } from '@/themes/theme'
 import { buildHomeFeedPosts } from '@/themes/heo/evidence.helpers'
 
-const RECOMMENDED_TAG = '推荐'
+const GROWTH_TAGS = ['随笔', '思考']
 
-export default function RecommendedReadingPage(props) {
+export default function GrowthNotesPage(props) {
   const theme = siteConfig('THEME', BLOG.THEME, props.NOTION_CONFIG)
   return <DynamicLayout theme={theme} layoutName='LayoutPostList' {...props} />
 }
 
 export async function getStaticProps({ locale }) {
-  const from = 'recommended-reading'
+  const from = 'growth-notes'
   const props = await fetchGlobalAllData({ from, locale })
   const POST_PREVIEW_LINES = siteConfig(
     'POST_PREVIEW_LINES',
@@ -25,12 +25,10 @@ export async function getStaticProps({ locale }) {
       page.type === 'Post' &&
       page.status === 'Published' &&
       Array.isArray(page.tags) &&
-      page.tags.includes(RECOMMENDED_TAG)
+      page.tags.some(tag => GROWTH_TAGS.includes(tag))
   )
 
-  const filteredPosts = buildHomeFeedPosts(publishedPosts).filter(
-    post => Array.isArray(post?.tags) && post.tags.includes(RECOMMENDED_TAG)
-  )
+  const filteredPosts = buildHomeFeedPosts(publishedPosts)
   props.posts = filteredPosts
   props.postCount = filteredPosts.length
 
