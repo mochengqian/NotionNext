@@ -13,7 +13,7 @@ export const EVIDENCE_CONFIG = {
   routeDescriptions: {
     '/': '默认内容流 · 全部文章 / 主线主题 / 工程证据',
     '/recommended-reading': '推荐阅读 · 只看带推荐标签的文章',
-    '/growth-notes': '成长随笔 · 只看带随笔或思考标签的文章',
+    '/growth-notes': '成长随笔 · 只看带成长或随笔标签的文章',
     '/interview-reading': '推荐顺序 · 一页看完当前阅读路径',
     '/series': '系列索引 · 源码 / 治理 / 可观测 / 观点',
     '/archive': '时间线归档 · 按时间回看持续积累'
@@ -32,15 +32,6 @@ export const EVIDENCE_CONFIG = {
       match: {
         tags: ['推荐'],
         keywords: ['推荐']
-      }
-    },
-    {
-      id: 'growth-notes',
-      title: '成长随笔',
-      href: '/growth-notes',
-      match: {
-        tags: ['随笔', '思考'],
-        keywords: ['随笔', '思考', '成长']
       }
     },
     {
@@ -71,6 +62,15 @@ export const EVIDENCE_CONFIG = {
           'cost'
         ]
       }
+    },
+    {
+      id: 'growth-notes',
+      title: '成长随笔',
+      href: '/growth-notes',
+      match: {
+        tags: ['成长', '随笔'],
+        keywords: ['成长', '随笔']
+      }
     }
   ],
   pageLeads: {
@@ -93,7 +93,7 @@ export const EVIDENCE_CONFIG = {
     growthNotes: {
       eyebrow: 'Growth Notes',
       title: '成长随笔',
-      description: '只保留带随笔或思考标签的文章，作为成长记录与阶段思考的单独入口。'
+      description: '只保留带成长或随笔标签的文章，作为成长记录与阶段思考的单独入口。'
     },
     series: {
       eyebrow: 'Series',

@@ -22,7 +22,7 @@ const normalizeTagItems = (post, pathname) => {
 
   if (pathname === '/growth-notes') {
     const growthTag = items.find(
-      tag => tag?.name === '随笔' || tag?.name === '思考'
+      tag => tag?.name === '成长' || tag?.name === '随笔'
     )
     if (growthTag) {
       items = [growthTag, ...items.filter(tag => tag?.name !== growthTag.name)]

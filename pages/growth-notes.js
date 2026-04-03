@@ -4,7 +4,7 @@ import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
 import { DynamicLayout } from '@/themes/theme'
 import { buildHomeFeedPosts } from '@/themes/heo/evidence.helpers'
 
-const GROWTH_TAGS = ['随笔', '思考']
+const GROWTH_TAGS = ['成长', '随笔']
 
 export default function GrowthNotesPage(props) {
   const theme = siteConfig('THEME', BLOG.THEME, props.NOTION_CONFIG)
