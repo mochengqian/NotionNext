@@ -107,14 +107,16 @@ const BlogPostCard = ({ post, compact = true }) => {
           <SmartLink
             href={post?.href}
             passHref
-            className='replace cursor-pointer text-[15px] font-semibold leading-6 text-slate-900 transition-colors group-hover:text-slate-700 dark:text-gray-100 dark:group-hover:text-white md:text-base'>
+            className='replace cursor-pointer text-[1.05rem] font-bold leading-7 text-slate-900 transition-colors group-hover:text-slate-700 dark:text-gray-100 dark:group-hover:text-white md:text-[1.18rem] md:leading-8'>
             {siteConfig('POST_TITLE_ICON') && post?.pageIcon && (
               <NotionIcon
                 icon={post.pageIcon}
                 className='heo-icon mr-1 inline h-4 w-4 translate-y-[-4%] align-middle'
               />
             )}
-            <span className='menu-link line-clamp-2'>{post.title}</span>
+            <span className='menu-link block whitespace-normal break-words'>
+              {post.title}
+            </span>
           </SmartLink>
 
           {showSummary && post?.summary && (
