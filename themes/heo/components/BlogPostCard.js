@@ -3,7 +3,6 @@ import SmartLink from '@/components/SmartLink'
 import { useRouter } from 'next/router'
 import CONFIG from '../config'
 import NotionIcon from './NotionIcon'
-import TagItemMini from './TagItemMini'
 import { resolveEvidenceType } from '../evidence.helpers'
 
 const normalizeTagItems = (post, pathname) => {
@@ -54,7 +53,6 @@ const BlogPostCard = ({ post, compact = true }) => {
   const router = useRouter()
   const evidenceType = resolveEvidenceType(post)
   const allTags = normalizeTagItems(post, router.route)
-  const topTags = allTags.slice(0, 1)
   const dateLabel = resolveDateLabel(post)
   const showSummary = compact
     ? true
@@ -84,6 +82,21 @@ const BlogPostCard = ({ post, compact = true }) => {
               </SmartLink>
             )}
 
+            {allTags.length > 0 && (
+              <div className='flex flex-wrap items-center gap-1.5'>
+                {allTags.map(tag => (
+                  <SmartLink
+                    key={tag.name}
+                    passHref
+                    href={`/tag/${encodeURIComponent(tag.name)}`}
+                    className='inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900 dark:border-gray-600 dark:bg-[#25242b] dark:text-gray-300 dark:hover:text-white'>
+                    <span className='mr-1 text-[10px]'>#</span>
+                    {tag.name}
+                  </SmartLink>
+                ))}
+              </div>
+            )}
+
             {dateLabel && (
               <span className='text-slate-400 dark:text-gray-500'>
                 {dateLabel}
@@ -101,7 +114,7 @@ const BlogPostCard = ({ post, compact = true }) => {
                 className='heo-icon mr-1 inline h-4 w-4 translate-y-[-4%] align-middle'
               />
             )}
-            <span className='menu-link line-clamp-1'>{post.title}</span>
+            <span className='menu-link line-clamp-2'>{post.title}</span>
           </SmartLink>
 
           {showSummary && post?.summary && (
@@ -111,18 +124,6 @@ const BlogPostCard = ({ post, compact = true }) => {
           )}
         </header>
 
-        {topTags.length > 0 && (
-          <div className='mt-2 flex flex-wrap gap-1.5'>
-            {topTags.map(tag => (
-              <TagItemMini key={tag.name} tag={tag} />
-            ))}
-            {allTags.length > topTags.length && (
-              <span className='inline-flex items-center rounded-md border border-dashed border-slate-200 px-2 py-0.5 text-[11px] text-slate-400 dark:border-gray-600 dark:text-gray-500'>
-                +{allTags.length - topTags.length}
-              </span>
-            )}
-          </div>
-        )}
       </div>
     </article>
   )

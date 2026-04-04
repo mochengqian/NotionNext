@@ -133,7 +133,7 @@ const LayoutBase = props => {
           id='container-inner'
           className={`${isArticleLayout ? 'xl:grid xl:grid-cols-[15.5rem_minmax(0,1fr)] xl:items-start xl:gap-6' : `${HEO_HERO_BODY_REVERSE ? 'flex-row-reverse' : ''} lg:flex justify-center`} w-full mx-auto relative z-10`}>
           {isArticleLayout && slotRight ? (
-            <div className='hidden xl:block xl:justify-self-start'>
+            <div className='hidden xl:block xl:self-stretch xl:justify-self-start'>
               {slotRight}
             </div>
           ) : null}
