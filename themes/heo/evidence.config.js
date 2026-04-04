@@ -5,7 +5,7 @@ export const EVIDENCE_CONFIG = {
     { name: '首页', href: '/', show: true },
     {
       name: '关于我',
-      href: 'https://notion-next-iota-amber-43.vercel.app/article/0',
+      href: 'https://notion-next-iota-amber-43.vercel.app/article/me',
       show: true
     },
     { name: '归档', href: '/archive', show: true }

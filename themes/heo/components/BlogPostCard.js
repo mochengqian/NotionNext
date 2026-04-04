@@ -64,7 +64,7 @@ const BlogPostCard = ({ post, compact = true }) => {
 
   return (
     <article className='group h-full'>
-      <div className='wow fadeInUp flex h-full flex-col rounded-lg border border-slate-200 bg-white px-3 py-2.5 transition-colors duration-200 hover:border-slate-300 dark:border-gray-700 dark:bg-[#1e1e1e]'>
+      <div className='wow fadeInUp flex h-full min-h-[6.75rem] flex-col rounded-lg border border-slate-200 bg-white px-3 py-2.5 transition-colors duration-200 hover:border-slate-300 dark:border-gray-700 dark:bg-[#1e1e1e] md:min-h-[7.25rem]'>
         <header>
           <div className='mb-1.5 flex flex-wrap items-center gap-1.5 text-[10px] font-medium md:text-[11px]'>
             {evidenceType && (
