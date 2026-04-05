@@ -81,15 +81,27 @@ const Catalog = ({ toc }) => {
       return
     }
 
+    const container = tRef.current
     const activeItem = tocItemRefs.current?.[activeSection]
-    if (!activeItem || typeof activeItem.scrollIntoView !== 'function') {
+    if (!container || !activeItem) {
       return
     }
 
-    activeItem.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest'
-    })
+    const targetTop = Math.max(
+      0,
+      activeItem.offsetTop - container.clientHeight * 0.35
+    )
+    const maxScrollTop = Math.max(
+      0,
+      container.scrollHeight - container.clientHeight
+    )
+    const nextScrollTop = Math.min(targetTop, maxScrollTop)
+
+    if (Math.abs(container.scrollTop - nextScrollTop) < 4) {
+      return
+    }
+
+    container.scrollTop = nextScrollTop
   }, [activeSection])
 
   // 无目录就直接返回空
@@ -98,7 +110,7 @@ const Catalog = ({ toc }) => {
   }
 
   return (
-    <div className='flex h-full min-h-0 flex-col px-3 py-1 text-black dark:text-white'>
+    <div className='flex h-full min-h-0 flex-col px-3 pb-1 pt-[4.5rem] text-black dark:text-white'>
       <div className='w-full shrink-0'>
         <i className='mr-1 fas fa-stream' />
         {locale.COMMON.TABLE_OF_CONTENTS}
