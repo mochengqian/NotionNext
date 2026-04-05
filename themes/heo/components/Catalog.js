@@ -26,7 +26,7 @@ const Catalog = ({ toc }) => {
           indentLevel: tocItem.indentLevel || 0
         }
       })
-      .filter(tocItem => (tocItem?.indentLevel || 0) <= 2)
+      .filter(tocItem => (tocItem?.indentLevel || 0) <= 1)
       .filter(Boolean)
   }, [toc])
 
