@@ -26,7 +26,9 @@ const Catalog = ({ toc }) => {
           indentLevel: tocItem.indentLevel || 0
         }
       })
-      .filter(tocItem => (tocItem?.indentLevel || 0) <= 1)
+      .filter(
+        tocItem => tocItem?.type === 'header' || tocItem?.type === 'sub_header'
+      )
       .filter(Boolean)
   }, [toc])
 
