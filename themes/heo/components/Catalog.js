@@ -22,9 +22,12 @@ const Catalog = ({ toc }) => {
         return {
           ...tocItem,
           id,
-          key: id || `toc-${index}`
+          key: id || `toc-${index}`,
+          sourceIndentLevel: tocItem.indentLevel || 0,
+          indentLevel: Math.max(0, (tocItem.indentLevel || 0) - 2)
         }
       })
+      .filter(tocItem => (tocItem?.sourceIndentLevel || 0) >= 2)
       .filter(Boolean)
   }, [toc])
 
@@ -41,27 +44,35 @@ const Catalog = ({ toc }) => {
   const tRef = useRef(null)
   const tocItemRefs = useRef({})
   const activeSectionRef = useRef(null)
+  const visibleTocIdsRef = useRef(new Set())
+  const firstVisibleTocIdRef = useRef(null)
 
   // 同步选中目录事件
   const [activeSection, setActiveSection] = useState(null)
+
+  useEffect(() => {
+    visibleTocIdsRef.current = new Set(tocEntries.map(item => item.id))
+    firstVisibleTocIdRef.current = tocEntries[0]?.id || null
+  }, [tocEntries])
 
   const actionSectionScrollSpy = useCallback(
     throttle(() => {
       const sections = document.getElementsByClassName('notion-h')
       let prevBBox = null
-      let currentSectionId = activeSectionRef.current
+      let currentSectionId =
+        activeSectionRef.current || firstVisibleTocIdRef.current
       for (let i = 0; i < sections.length; ++i) {
         const section = sections[i]
         if (!section || !(section instanceof Element)) continue
-        if (!currentSectionId) {
-          currentSectionId = section.getAttribute('data-id')
-        }
+        const sectionId = section.getAttribute('data-id')
         const bbox = section.getBoundingClientRect()
         const prevHeight = prevBBox ? bbox.top - prevBBox.bottom : 0
         const offset = Math.max(150, prevHeight / 4)
         // GetBoundingClientRect returns values relative to viewport
         if (bbox.top - offset < 0) {
-          currentSectionId = section.getAttribute('data-id')
+          if (sectionId && visibleTocIdsRef.current.has(sectionId)) {
+            currentSectionId = sectionId
+          }
           prevBBox = bbox
           continue
         }
