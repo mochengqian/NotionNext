@@ -1,7 +1,7 @@
 import { useGlobal } from '@/lib/global'
 import throttle from 'lodash.throttle'
 import { uuidToId } from 'notion-utils'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 /**
  * 目录导航组件
@@ -11,6 +11,23 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  */
 const Catalog = ({ toc }) => {
   const { locale } = useGlobal()
+  const tocEntries = useMemo(() => {
+    return (toc || [])
+      .map((tocItem, index) => {
+        const id = tocItem?.id ? uuidToId(tocItem.id) : null
+        if (!id) {
+          return null
+        }
+
+        return {
+          ...tocItem,
+          id,
+          key: id || `toc-${index}`
+        }
+      })
+      .filter(Boolean)
+  }, [toc])
+
   // 监听滚动事件
   useEffect(() => {
     window.addEventListener('scroll', actionSectionScrollSpy)
@@ -22,7 +39,8 @@ const Catalog = ({ toc }) => {
 
   // 目录自动滚动
   const tRef = useRef(null)
-  const tocIds = []
+  const tocItemRefs = useRef({})
+  const activeSectionRef = useRef(null)
 
   // 同步选中目录事件
   const [activeSection, setActiveSection] = useState(null)
@@ -31,7 +49,7 @@ const Catalog = ({ toc }) => {
     throttle(() => {
       const sections = document.getElementsByClassName('notion-h')
       let prevBBox = null
-      let currentSectionId = activeSection
+      let currentSectionId = activeSectionRef.current
       for (let i = 0; i < sections.length; ++i) {
         const section = sections[i]
         if (!section || !(section instanceof Element)) continue
@@ -51,13 +69,31 @@ const Catalog = ({ toc }) => {
         break
       }
       setActiveSection(currentSectionId)
-      const index = tocIds.indexOf(currentSectionId) || 0
-      tRef?.current?.scrollTo({ top: 28 * index, behavior: 'smooth' })
     }, 200)
-  )
+  , [])
+
+  useEffect(() => {
+    activeSectionRef.current = activeSection
+  }, [activeSection])
+
+  useEffect(() => {
+    if (!activeSection) {
+      return
+    }
+
+    const activeItem = tocItemRefs.current?.[activeSection]
+    if (!activeItem || typeof activeItem.scrollIntoView !== 'function') {
+      return
+    }
+
+    activeItem.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    })
+  }, [activeSection])
 
   // 无目录就直接返回空
-  if (!toc || toc.length < 1) {
+  if (!tocEntries || tocEntries.length < 1) {
     return <></>
   }
 
@@ -71,20 +107,18 @@ const Catalog = ({ toc }) => {
         className='mt-3 min-h-0 flex-1 overflow-y-auto overscroll-none scroll-hidden'
         ref={tRef}>
         <nav className='h-full'>
-          {toc?.map((tocItem, index) => {
-            if (!tocItem?.id) {
-              return null
-            }
-
-            const id = uuidToId(tocItem.id)
-            if (!id) {
-              return null
-            }
-            tocIds.push(id)
+          {tocEntries.map(tocItem => {
             return (
               <a
-                key={id || `toc-${index}`}
-                href={`#${id}`}
+                key={tocItem.key}
+                href={`#${tocItem.id}`}
+                ref={node => {
+                  if (!node) {
+                    delete tocItemRefs.current[tocItem.id]
+                    return
+                  }
+                  tocItemRefs.current[tocItem.id] = node
+                }}
                 className={`notion-table-of-contents-item duration-300 transform dark:text-gray-200
             notion-table-of-contents-item-indent-level-${tocItem.indentLevel} catalog-item `}>
                 <span
@@ -92,7 +126,7 @@ const Catalog = ({ toc }) => {
                     display: 'inline-block',
                     marginLeft: tocItem.indentLevel * 16
                   }}
-                  className={`truncate ${activeSection === id ? 'font-bold text-indigo-600' : ''}`}>
+                  className={`truncate ${activeSection === tocItem.id ? 'font-bold text-indigo-600' : ''}`}>
                   {tocItem.text}
                 </span>
               </a>
