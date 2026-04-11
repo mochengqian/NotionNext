@@ -17,6 +17,7 @@ export const EVIDENCE_CONFIG = {
     '/': '默认内容流 · 全部文章 / 主线主题 / 工程证据',
     '/recommended-reading': '推荐阅读 · 只看带推荐标签的文章',
     '/growth-notes': '成长随笔 · 只看带成长或随笔标签的文章',
+    '/technical-exploration': '技术探索 · 只看分类或标签含技术探索的文章',
     '/interview-reading': '推荐顺序 · 一页看完当前阅读路径',
     '/series': '系列索引 · 源码 / 治理 / 可观测 / 观点',
     '/archive': '时间线归档 · 按时间回看持续积累'
@@ -67,6 +68,16 @@ export const EVIDENCE_CONFIG = {
       }
     },
     {
+      id: 'technical-exploration',
+      title: '技术探索',
+      href: '/technical-exploration',
+      match: {
+        categories: ['技术探索'],
+        tags: ['技术探索'],
+        keywords: ['技术探索']
+      }
+    },
+    {
       id: 'growth-notes',
       title: '成长随笔',
       href: '/growth-notes',
@@ -97,6 +108,11 @@ export const EVIDENCE_CONFIG = {
       eyebrow: 'Growth Notes',
       title: '成长随笔',
       description: '只保留带成长或随笔标签的文章，作为成长记录与阶段思考的单独入口。'
+    },
+    technicalExploration: {
+      eyebrow: 'Tech Sharing',
+      title: '技术探索',
+      description: '只保留分类或标签含技术探索的文章，集中归档技术实践与方法总结。'
     },
     series: {
       eyebrow: 'Series',
@@ -420,7 +436,7 @@ export const EVIDENCE_CONFIG = {
       entryPanel: {
         eyebrow: 'Quick Access',
         title: '源码与项目入口',
-        description: 'GitHub 放源码、实验项目和开源贡献。',
+        description: 'GitHub 有项目源码和开源贡献。',
         actions: [
           {
             title: 'GitHub',

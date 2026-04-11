@@ -28,6 +28,16 @@ const normalizeTagItems = (post, pathname) => {
     }
   }
 
+  if (pathname === '/technical-exploration') {
+    const technicalExplorationTag = items.find(tag => tag?.name === '技术探索')
+    if (technicalExplorationTag) {
+      items = [
+        technicalExplorationTag,
+        ...items.filter(tag => tag?.name !== '技术探索')
+      ]
+    }
+  }
+
   return items
 }
 

@@ -72,6 +72,7 @@ const LayoutBase = props => {
     '/',
     '/recommended-reading',
     '/growth-notes',
+    '/technical-exploration',
     '/category',
     '/category/[category]',
     '/category/[category]/page/[page]',

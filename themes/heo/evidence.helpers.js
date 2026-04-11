@@ -294,6 +294,7 @@ export const resolveActiveContentTab = ({ pathname, category, tag }) => {
     pathname === '/' ||
     pathname === '/recommended-reading' ||
     pathname === '/growth-notes' ||
+    pathname === '/technical-exploration' ||
     pathname === '/archive' ||
     pathname === '/page/[page]' ||
     pathname === '/series'
@@ -303,6 +304,9 @@ export const resolveActiveContentTab = ({ pathname, category, tag }) => {
     }
     if (pathname === '/growth-notes') {
       return 'growth-notes'
+    }
+    if (pathname === '/technical-exploration') {
+      return 'technical-exploration'
     }
     return 'all'
   }
@@ -347,6 +351,10 @@ export const getPageLeadConfig = ({ pathname, category, tag }) => {
 
   if (pathname === '/growth-notes') {
     return EVIDENCE_CONFIG.pageLeads.growthNotes
+  }
+
+  if (pathname === '/technical-exploration') {
+    return EVIDENCE_CONFIG.pageLeads.technicalExploration
   }
 
   if (pathname === '/series') {
