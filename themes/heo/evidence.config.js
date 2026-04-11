@@ -418,44 +418,23 @@ export const EVIDENCE_CONFIG = {
         }
       ],
       entryPanel: {
-        eyebrow: 'Source / Projects',
-        title: '从 GitHub 开始看实现',
+        eyebrow: 'Quick Access',
+        title: '源码与项目入口',
         description:
-          '如果你想直接看源码、实验项目、开源贡献和持续更新中的工程记录，可以从 GitHub 主页进入；关于我页面再补完整背景与路线。',
-        badges: [
-          'Gateway',
-          'Service Governance',
-          'Observability',
-          'AI Gateway'
-        ],
-        highlights: [
-          {
-            title: '源码与实验',
-            summary: '优先进入正在演进的项目仓库、实验记录和可复现实现。'
-          },
-          {
-            title: '开源贡献',
-            summary: '集中查看 PR、issue、merged 记录和技术协作证据。'
-          },
-          {
-            title: '关于我',
-            summary: '补齐个人背景、主线方向，以及为什么持续做这些事情。'
-          }
-        ],
+          'GitHub 放源码、实验项目和开源贡献；关于我补完整背景与技术路线。',
         actions: [
           {
-            title: '查看 GitHub 主页',
+            title: 'GitHub',
             href: GITHUB_URL,
             target: '_blank',
             icon: 'fab fa-github'
           },
           {
-            title: '进入关于我',
+            title: '关于我',
             href: ABOUT_URL,
             icon: 'fa-regular fa-user'
           }
-        ],
-        footer: 'github.com/mochengqian'
+        ]
       },
       sections: [
         {

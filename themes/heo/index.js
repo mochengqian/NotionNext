@@ -208,9 +208,9 @@ const LayoutIndex = props => {
               {readingOrderSection.title}
             </h2>
           </div>
-          <div className={`mt-3 grid gap-4 ${readingEntryPanel ? 'xl:grid-cols-[minmax(0,1.02fr)_minmax(20rem,0.98fr)]' : ''}`}>
-            <Card className='h-full border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#1e1e1e]'>
-              <ol className='space-y-3 xl:pr-2'>
+          <Card className='mt-3 border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#1e1e1e]'>
+            <div className={`grid gap-5 ${readingEntryPanel ? 'xl:grid-cols-[minmax(0,1fr)_17.5rem] xl:items-center' : ''}`}>
+              <ol className='space-y-3 xl:pr-4'>
                 {readingOrderSection.items?.map((item, index) => (
                   <li
                     key={`home-reading-order-${index}`}
@@ -231,59 +231,27 @@ const LayoutIndex = props => {
                   </li>
                 ))}
               </ol>
-            </Card>
 
-            {readingEntryPanel ? (
-              <div className='relative overflow-hidden rounded-xl border border-slate-200 shadow-sm dark:border-gray-700'>
-                <div className='absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(148,163,184,0.35),transparent_34%),linear-gradient(135deg,#0f172a_0%,#111827_58%,#1e293b_100%)]' />
-                <div className='relative flex h-full flex-col px-5 py-5 text-white md:px-6'>
-                  <div className='inline-flex w-fit rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-200'>
-                    {readingEntryPanel.eyebrow}
-                  </div>
+              {readingEntryPanel ? (
+                <aside className='rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 shadow-none dark:border-gray-700 dark:bg-[#25242b]'>
+                  {readingEntryPanel.eyebrow && (
+                    <div className='text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-gray-400'>
+                      {readingEntryPanel.eyebrow}
+                    </div>
+                  )}
 
-                  <h3 className='mt-4 text-2xl font-semibold tracking-tight text-white md:text-[1.9rem]'>
+                  <h3 className='mt-1 text-base font-semibold text-slate-900 dark:text-white'>
                     {readingEntryPanel.title}
                   </h3>
 
                   {readingEntryPanel.description && (
-                    <p className='mt-3 max-w-2xl text-sm leading-7 text-slate-200'>
+                    <p className='mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300'>
                       {readingEntryPanel.description}
                     </p>
                   )}
 
-                  {readingEntryPanel.badges?.length > 0 && (
-                    <div className='mt-4 flex flex-wrap gap-2'>
-                      {readingEntryPanel.badges.map(badge => (
-                        <span
-                          key={badge}
-                          className='rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-100'>
-                          {badge}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {readingEntryPanel.highlights?.length > 0 && (
-                    <div className='mt-5 grid gap-3 sm:grid-cols-3 xl:grid-cols-1'>
-                      {readingEntryPanel.highlights.map(highlight => (
-                        <div
-                          key={highlight.title}
-                          className='rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm'>
-                          <div className='text-sm font-semibold text-white'>
-                            {highlight.title}
-                          </div>
-                          {highlight.summary && (
-                            <p className='mt-1 text-sm leading-6 text-slate-200'>
-                              {highlight.summary}
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
                   {readingEntryPanel.actions?.length > 0 && (
-                    <div className='mt-6 flex flex-wrap gap-3'>
+                    <div className='mt-4 flex flex-wrap gap-2'>
                       {readingEntryPanel.actions.map((action, index) => {
                         const primary = index === 0
                         return (
@@ -291,9 +259,9 @@ const LayoutIndex = props => {
                             key={action.title}
                             href={action.href}
                             target={action.target}
-                            className={`inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 ${primary
-                              ? 'bg-white text-slate-900 shadow-sm hover:bg-slate-100'
-                              : 'border border-white/15 bg-white/5 text-white hover:border-white/30 hover:bg-white/10'}`}>
+                            className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${primary
+                              ? 'border border-slate-900 bg-slate-900 text-white hover:bg-slate-800 dark:border-white dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200'
+                              : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-gray-600 dark:bg-[#1e1e1e] dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#2b2a31]'}`}>
                             {action.icon ? <i className={action.icon} /> : null}
                             {action.title}
                           </SmartLink>
@@ -301,20 +269,10 @@ const LayoutIndex = props => {
                       })}
                     </div>
                   )}
-
-                  {readingEntryPanel.footer && (
-                    <div className='mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-5 text-sm text-slate-300'>
-                      <div className='inline-flex items-center gap-2'>
-                        <i className='fab fa-github text-base' />
-                        {readingEntryPanel.footer}
-                      </div>
-                      <i className='fa-solid fa-arrow-up-right-from-square text-xs text-slate-400' />
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : null}
-          </div>
+                </aside>
+              ) : null}
+            </div>
+          </Card>
         </section>
       ) : (
         <PageLead {...getPageLeadConfig({ pathname: '/' })} compact />
