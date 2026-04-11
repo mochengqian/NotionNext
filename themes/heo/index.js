@@ -216,8 +216,8 @@ const LayoutIndex = props => {
                   {readingOrderSection.items?.map((item, index) => (
                     <li
                       key={`home-reading-order-${index}`}
-                      className='flex gap-3'>
-                      <div className='mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white dark:bg-white dark:text-slate-900'>
+                      className='flex items-center gap-3'>
+                      <div className='flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white dark:bg-white dark:text-slate-900'>
                         {index + 1}
                       </div>
                       <div>
@@ -301,7 +301,7 @@ const LayoutIndex = props => {
                             href={action.href}
                             target={action.target}
                             className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${primary
-                              ? 'border border-slate-900 bg-slate-900 text-white hover:bg-slate-800 dark:border-white dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200'
+                              ? 'border border-slate-200 bg-white text-slate-950 hover:border-slate-300 hover:bg-slate-100 dark:border-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200'
                               : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-gray-600 dark:bg-[#1e1e1e] dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#2b2a31]'}`}>
                             {action.icon ? <i className={action.icon} /> : null}
                             {action.title}

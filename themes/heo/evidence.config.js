@@ -420,8 +420,7 @@ export const EVIDENCE_CONFIG = {
       entryPanel: {
         eyebrow: 'Quick Access',
         title: '源码与项目入口',
-        description:
-          'GitHub 放源码、实验项目和开源贡献；关于我补完整背景与技术路线。',
+        description: 'GitHub 放源码、实验项目和开源贡献。',
         actions: [
           {
             title: 'GitHub',
@@ -440,13 +439,7 @@ export const EVIDENCE_CONFIG = {
         eyebrow: 'Welcome',
         title: '欢迎来到我的博客!',
         description: '这里记录我的思考与成长',
-        signature: '读得顺利，写得尽兴。',
-        keywords: [
-          'Gateway',
-          'Service Governance',
-          'Observability',
-          'AI Gateway'
-        ]
+        signature: '读得顺利，写得尽兴。'
       },
       sections: [
         {
