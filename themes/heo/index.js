@@ -201,42 +201,39 @@ const LayoutIndex = props => {
     <div id='post-outer-wrapper' className='px-5 md:px-0'>
       {readingOrderSection ? (
         <section className='mb-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 shadow-none dark:border-gray-700 dark:bg-[#202026] md:px-5'>
-          <div className='px-1'>
-            <div className='text-xs uppercase tracking-[0.16em] text-slate-500 dark:text-gray-400'>
-              欢迎来到我的博客!
-            </div>
-            <h2 className='mt-1 text-lg font-semibold text-slate-900 dark:text-white md:text-xl'>
-              {readingOrderSection.title}
-            </h2>
-          </div>
-          <Card className='mt-3 border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#1e1e1e]'>
+          <Card className='border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#1e1e1e]'>
             <div
               className={`grid gap-5 ${readingEntryPanel && readingWelcomePanel
                 ? 'xl:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)_15rem] xl:items-center'
                 : readingEntryPanel
                   ? 'xl:grid-cols-[minmax(0,1fr)_17.5rem] xl:items-center'
                   : ''}`}>
-              <ol className='space-y-3 xl:pr-2'>
-                {readingOrderSection.items?.map((item, index) => (
-                  <li
-                    key={`home-reading-order-${index}`}
-                    className='flex gap-3'>
-                    <div className='mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700 dark:bg-[#25242b] dark:text-gray-200'>
-                      {index + 1}
-                    </div>
-                    <div>
-                      <div className='text-sm font-semibold text-slate-900 dark:text-white'>
-                        {item.title || item}
+              <div className='space-y-4 xl:pr-2'>
+                <h2 className='text-lg font-semibold text-slate-900 dark:text-white md:text-xl'>
+                  {readingOrderSection.title}
+                </h2>
+                <ol className='space-y-3'>
+                  {readingOrderSection.items?.map((item, index) => (
+                    <li
+                      key={`home-reading-order-${index}`}
+                      className='flex gap-3'>
+                      <div className='mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-semibold text-slate-700 dark:bg-[#25242b] dark:text-gray-200'>
+                        {index + 1}
                       </div>
-                      {item.summary && (
-                        <p className='mt-1 text-sm leading-6 text-slate-600 dark:text-gray-300'>
-                          {item.summary}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
+                      <div>
+                        <div className='text-sm font-semibold text-slate-900 dark:text-white'>
+                          {item.title || item}
+                        </div>
+                        {item.summary && (
+                          <p className='mt-1 text-sm leading-6 text-slate-600 dark:text-gray-300'>
+                            {item.summary}
+                          </p>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
 
               {readingWelcomePanel ? (
                 <section className='flex h-full flex-col justify-center rounded-xl border border-slate-200 bg-slate-50/70 px-5 py-4 dark:border-gray-700 dark:bg-[#25242b]/80'>
