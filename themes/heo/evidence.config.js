@@ -436,6 +436,18 @@ export const EVIDENCE_CONFIG = {
           }
         ]
       },
+      welcomePanel: {
+        eyebrow: 'Welcome',
+        title: '欢迎来到这里',
+        description: '这里优先展示可复现、可评审的工程证据。',
+        signature: '读得顺利，写得尽兴。',
+        keywords: [
+          'Gateway',
+          'Service Governance',
+          'Observability',
+          'AI Gateway'
+        ]
+      },
       sections: [
         {
           type: 'steps',

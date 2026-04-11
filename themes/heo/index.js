@@ -189,6 +189,7 @@ const LayoutIndex = props => {
     section => section.id === 'reading-order'
   )
   const readingEntryPanel = readingPageConfig?.entryPanel
+  const readingWelcomePanel = readingPageConfig?.welcomePanel
   const homeFeedProps = {
     ...props,
     posts:
@@ -209,8 +210,13 @@ const LayoutIndex = props => {
             </h2>
           </div>
           <Card className='mt-3 border-slate-200 bg-white shadow-sm dark:border-gray-700 dark:bg-[#1e1e1e]'>
-            <div className={`grid gap-5 ${readingEntryPanel ? 'xl:grid-cols-[minmax(0,1fr)_17.5rem] xl:items-center' : ''}`}>
-              <ol className='space-y-3 xl:pr-4'>
+            <div
+              className={`grid gap-5 ${readingEntryPanel && readingWelcomePanel
+                ? 'xl:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)_15rem] xl:items-center'
+                : readingEntryPanel
+                  ? 'xl:grid-cols-[minmax(0,1fr)_17.5rem] xl:items-center'
+                  : ''}`}>
+              <ol className='space-y-3 xl:pr-2'>
                 {readingOrderSection.items?.map((item, index) => (
                   <li
                     key={`home-reading-order-${index}`}
@@ -232,6 +238,44 @@ const LayoutIndex = props => {
                 ))}
               </ol>
 
+              {readingWelcomePanel ? (
+                <section className='flex h-full flex-col justify-center rounded-xl border border-slate-200 bg-slate-50/70 px-5 py-4 dark:border-gray-700 dark:bg-[#25242b]/80'>
+                  {readingWelcomePanel.eyebrow && (
+                    <div className='text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-gray-400'>
+                      {readingWelcomePanel.eyebrow}
+                    </div>
+                  )}
+
+                  <h3 className='mt-1 text-lg font-semibold text-slate-900 dark:text-white'>
+                    {readingWelcomePanel.title}
+                  </h3>
+
+                  {readingWelcomePanel.description && (
+                    <p className='mt-2 text-sm leading-6 text-slate-600 dark:text-gray-300'>
+                      {readingWelcomePanel.description}
+                    </p>
+                  )}
+
+                  {readingWelcomePanel.signature && (
+                    <p className='mt-3 text-sm font-medium text-slate-700 dark:text-gray-200'>
+                      {readingWelcomePanel.signature}
+                    </p>
+                  )}
+
+                  {readingWelcomePanel.keywords?.length > 0 && (
+                    <div className='mt-4 flex flex-wrap gap-2'>
+                      {readingWelcomePanel.keywords.map(keyword => (
+                        <span
+                          key={keyword}
+                          className='rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.12em] text-slate-500 dark:border-gray-600 dark:bg-[#1e1e1e] dark:text-gray-300'>
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              ) : null}
+
               {readingEntryPanel ? (
                 <aside className='rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 shadow-none dark:border-gray-700 dark:bg-[#25242b]'>
                   {readingEntryPanel.eyebrow && (
@@ -251,7 +295,7 @@ const LayoutIndex = props => {
                   )}
 
                   {readingEntryPanel.actions?.length > 0 && (
-                    <div className='mt-4 flex flex-wrap gap-2'>
+                    <div className='mt-4 flex flex-wrap gap-2 xl:flex-col'>
                       {readingEntryPanel.actions.map((action, index) => {
                         const primary = index === 0
                         return (
@@ -259,7 +303,7 @@ const LayoutIndex = props => {
                             key={action.title}
                             href={action.href}
                             target={action.target}
-                            className={`inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${primary
+                            className={`inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${primary
                               ? 'border border-slate-900 bg-slate-900 text-white hover:bg-slate-800 dark:border-white dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200'
                               : 'border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-gray-600 dark:bg-[#1e1e1e] dark:text-gray-200 dark:hover:border-gray-500 dark:hover:bg-[#2b2a31]'}`}>
                             {action.icon ? <i className={action.icon} /> : null}
