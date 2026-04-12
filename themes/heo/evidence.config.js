@@ -455,7 +455,7 @@ export const EVIDENCE_CONFIG = {
         eyebrow: 'Welcome',
         title: '欢迎来到我的博客!',
         description: '这里记录我的思考与成长',
-        signature: '读得顺利，看得尽兴。'
+        signature: '祝读得顺利，看得尽兴。'
       },
       sections: [
         {
