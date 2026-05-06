@@ -2,7 +2,7 @@ import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { fetchGlobalAllData, getPostBlocks } from '@/lib/db/SiteDataApi'
 import { DynamicLayout } from '@/themes/theme'
-import { buildHomeFeedPosts } from '@/themes/heo/evidence.helpers'
+import { sortPostsByPublishDateDesc } from '@/themes/heo/evidence.helpers'
 
 /**
  * 文章列表分页
@@ -20,7 +20,7 @@ export async function getStaticPaths({ locale }) {
   const allPosts = (allPages || []).filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
-  const filteredPosts = buildHomeFeedPosts(allPosts)
+  const filteredPosts = sortPostsByPublishDateDesc(allPosts)
   const totalPages = Math.ceil(
     filteredPosts.length / siteConfig('POSTS_PER_PAGE', null, NOTION_CONFIG)
   )
@@ -46,7 +46,7 @@ export async function getStaticProps({ params: { page }, locale }) {
   const allPosts = allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
-  const filteredPosts = buildHomeFeedPosts(allPosts)
+  const filteredPosts = sortPostsByPublishDateDesc(allPosts)
   const POSTS_PER_PAGE = siteConfig('POSTS_PER_PAGE', 12, props?.NOTION_CONFIG)
   // 处理分页
   props.posts = filteredPosts.slice(

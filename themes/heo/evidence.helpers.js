@@ -289,6 +289,14 @@ export const buildHomeFeedPosts = posts => {
   })
 }
 
+export const sortPostsByPublishDateDesc = posts => {
+  const allPosts = Array.isArray(posts) ? posts.filter(isRenderablePost) : []
+
+  return [...allPosts].sort((left, right) => {
+    return resolvePostTimestamp(right) - resolvePostTimestamp(left)
+  })
+}
+
 export const resolveActiveContentTab = ({ pathname, category, tag }) => {
   if (
     pathname === '/' ||

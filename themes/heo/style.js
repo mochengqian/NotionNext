@@ -60,9 +60,21 @@ const Style = () => {
       }
 
       #theme-heo #article-wrapper .notion {
-        font-size: 1rem;
-        line-height: 1.9;
-        color: #1f2937;
+        font-size: 1.01rem;
+        line-height: 1.82;
+        color: #111827;
+      }
+
+      #theme-heo #article-wrapper .notion p,
+      #theme-heo #article-wrapper .notion li,
+      #theme-heo #article-wrapper .notion span,
+      #theme-heo #article-wrapper .notion div {
+        color: inherit;
+      }
+
+      #theme-heo #article-wrapper .notion strong {
+        color: #020617;
+        font-weight: 700;
       }
 
       html.dark #theme-heo #article-wrapper .notion,
@@ -71,7 +83,7 @@ const Style = () => {
       html.dark #theme-heo #article-wrapper .notion span,
       html.dark #theme-heo #article-wrapper .notion strong,
       html.dark #theme-heo #article-wrapper .notion div {
-        color: #e5e7eb;
+        color: #f1f5f9;
       }
 
       #theme-heo #article-wrapper .notion h1,
@@ -148,7 +160,7 @@ const Style = () => {
       @media (max-width: 768px) {
         #theme-heo #article-wrapper .notion {
           font-size: 0.96rem;
-          line-height: 1.85;
+          line-height: 1.78;
         }
 
         #theme-heo #article-wrapper .notion h2 {

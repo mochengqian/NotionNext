@@ -7,6 +7,7 @@ import { generateSitemapXml } from '@/lib/utils/sitemap.xml'
 import { DynamicLayout } from '@/themes/theme'
 import { generateRedirectJson } from '@/lib/utils/redirect'
 import { checkDataFromAlgolia } from '@/lib/plugins/algolia'
+import { sortPostsByPublishDateDesc } from '@/themes/heo/evidence.helpers'
 
 /**
  * 首页布局
@@ -34,8 +35,9 @@ export async function getStaticProps(req) {
   const publishedPosts = props.allPages?.filter(
     page => page.type === 'Post' && page.status === 'Published'
   )
-  props.homePosts = publishedPosts
-  props.posts = publishedPosts
+  const sortedPosts = sortPostsByPublishDateDesc(publishedPosts)
+  props.homePosts = sortedPosts
+  props.posts = sortedPosts
 
   // 处理分页
   if (siteConfig('POST_LIST_STYLE') === 'scroll') {

@@ -44,11 +44,11 @@ import AISummary from '@/components/AISummary'
 import ArticleExpirationNotice from '@/components/ArticleExpirationNotice'
 import {
   buildFocusTags,
-  buildHomeFeedPosts,
   buildPrimaryCategories,
   getPageLeadConfig,
   getStaticPageConfig,
-  resolveActiveContentTab
+  resolveActiveContentTab,
+  sortPostsByPublishDateDesc
 } from './evidence.helpers'
 
 /**
@@ -181,7 +181,7 @@ const LayoutIndex = props => {
       : null) ||
     props.posts ||
     []
-  const allHomePosts = buildHomeFeedPosts(homeSource)
+  const allHomePosts = sortPostsByPublishDateDesc(homeSource)
   const postsPerPage = siteConfig('POSTS_PER_PAGE', 12, props.NOTION_CONFIG)
   const listStyle = siteConfig('POST_LIST_STYLE')
   const readingPageConfig = getStaticPageConfig('interviewReading')

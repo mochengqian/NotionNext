@@ -49,25 +49,6 @@ export const EVIDENCE_CONFIG = {
       }
     },
     {
-      id: 'llm-access-gateway',
-      title: '自研LLM Access Gateway项目',
-      href: '/tag/gateway',
-      match: {
-        categories: ['流量与服务治理', '观点与模型'],
-        tags: ['gateway'],
-        keywords: [
-          'gateway',
-          'access gateway',
-          'llm access gateway',
-          'llmops',
-          'model',
-          'policy',
-          'token',
-          'cost'
-        ]
-      }
-    },
-    {
       id: 'technical-exploration',
       title: '技术探索',
       href: '/technical-exploration',
