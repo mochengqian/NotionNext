@@ -59,6 +59,14 @@ export const EVIDENCE_CONFIG = {
       }
     },
     {
+      id: 'agent',
+      title: 'Agent',
+      href: '/tag/Agent',
+      match: {
+        tags: ['Agent']
+      }
+    },
+    {
       id: 'growth-notes',
       title: '成长随笔',
       href: '/growth-notes',
