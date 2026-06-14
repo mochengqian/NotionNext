@@ -301,19 +301,31 @@ export const resolveActiveContentTab = ({ pathname, category, tag }) => {
   if (
     pathname === '/' ||
     pathname === '/recommended-reading' ||
+    pathname === '/recommended-reading/page/[page]' ||
     pathname === '/growth-notes' ||
+    pathname === '/growth-notes/page/[page]' ||
     pathname === '/technical-exploration' ||
+    pathname === '/technical-exploration/page/[page]' ||
     pathname === '/archive' ||
     pathname === '/page/[page]' ||
     pathname === '/series'
   ) {
-    if (pathname === '/recommended-reading') {
+    if (
+      pathname === '/recommended-reading' ||
+      pathname === '/recommended-reading/page/[page]'
+    ) {
       return 'recommended-reading'
     }
-    if (pathname === '/growth-notes') {
+    if (
+      pathname === '/growth-notes' ||
+      pathname === '/growth-notes/page/[page]'
+    ) {
       return 'growth-notes'
     }
-    if (pathname === '/technical-exploration') {
+    if (
+      pathname === '/technical-exploration' ||
+      pathname === '/technical-exploration/page/[page]'
+    ) {
       return 'technical-exploration'
     }
     return 'all'
@@ -353,15 +365,24 @@ export const getPageLeadConfig = ({ pathname, category, tag }) => {
     return EVIDENCE_CONFIG.pageLeads.archive
   }
 
-  if (pathname === '/recommended-reading') {
+  if (
+    pathname === '/recommended-reading' ||
+    pathname === '/recommended-reading/page/[page]'
+  ) {
     return EVIDENCE_CONFIG.pageLeads.recommendedReading
   }
 
-  if (pathname === '/growth-notes') {
+  if (
+    pathname === '/growth-notes' ||
+    pathname === '/growth-notes/page/[page]'
+  ) {
     return EVIDENCE_CONFIG.pageLeads.growthNotes
   }
 
-  if (pathname === '/technical-exploration') {
+  if (
+    pathname === '/technical-exploration' ||
+    pathname === '/technical-exploration/page/[page]'
+  ) {
     return EVIDENCE_CONFIG.pageLeads.technicalExploration
   }
 

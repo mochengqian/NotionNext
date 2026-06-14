@@ -1,6 +1,9 @@
 import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
-import { getEvidencePostListStaticProps } from '@/lib/evidence-page'
+import {
+  getEvidencePostListStaticPaths,
+  getEvidencePostListStaticProps
+} from '@/lib/evidence-page'
 import { DynamicLayout } from '@/themes/theme'
 
 export default function GrowthNotesPage(props) {
@@ -8,8 +11,16 @@ export default function GrowthNotesPage(props) {
   return <DynamicLayout theme={theme} layoutName='LayoutPostList' {...props} />
 }
 
-export async function getStaticProps({ locale }) {
+export async function getStaticProps({ params: { page }, locale }) {
   return getEvidencePostListStaticProps({
+    locale,
+    listKey: 'growthNotes',
+    page
+  })
+}
+
+export async function getStaticPaths({ locale }) {
+  return getEvidencePostListStaticPaths({
     locale,
     listKey: 'growthNotes'
   })

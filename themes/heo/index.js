@@ -71,8 +71,11 @@ const LayoutBase = props => {
   const contentTabRoutes = new Set([
     '/',
     '/recommended-reading',
+    '/recommended-reading/page/[page]',
     '/growth-notes',
+    '/growth-notes/page/[page]',
     '/technical-exploration',
+    '/technical-exploration/page/[page]',
     '/category',
     '/category/[category]',
     '/category/[category]/page/[page]',
